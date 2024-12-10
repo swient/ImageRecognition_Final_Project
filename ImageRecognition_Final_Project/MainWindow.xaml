@@ -1,0 +1,76 @@
+﻿<hc:Window x:Class="ImageRecognition_Final_Project.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageRecognition_Final_Project"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        mc:Ignorable="d"
+        Title="影像辨識-期末專題" Height="600" Width="1000" ResizeMode="NoResize" Icon="/Image/ImageRecognition_icon.ico">
+    <Grid>
+        <TabControl Style="{StaticResource TabControlInLine}" Grid.ColumnSpan="3">
+            <TabItem Header="浮水印">
+                <Grid Background="WhiteSmoke">
+                    <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectMainImage_Click" Margin="110,426,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ButtonPrimary}"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="60,48,687,255" Background="White">
+                        <Image x:Name="MainImage"/>
+                    </Border>
+                    <Button Content="選擇浮水印" Width="150" Height="30" Click="SelectWatermark_Click" Margin="0,426,0,0" VerticalAlignment="Top" Style="{StaticResource ButtonPrimary}"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="374,48,374,255" Background="White">
+                        <Image x:Name="WatermarkImage"/>
+                    </Border>
+                    <Button Content="生成圖片" Width="150" Height="30" Click="GenerateImage_Click" Margin="738,426,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ButtonPrimary}"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="688,48,60,255" Background="White">
+                        <Image x:Name="GenerateImage"/>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="平滑化">
+                <Grid Background="WhiteSmoke">
+                    <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectMainImage_Click2" Margin="110,426,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ButtonPrimary}"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="60,48,687,255" Background="White">
+                        <Image x:Name="MainImage2"/>
+                    </Border>
+                    <Button Content="平滑化1" Width="150" Height="30" Click="Smonnthing1_Click" Margin="0,426,0,0" VerticalAlignment="Top" Style="{StaticResource ButtonPrimary}"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="374,48,374,255" Background="White">
+                        <Image x:Name="Smonnthing1"/>
+                    </Border>
+                    <Button Content="平滑化2" Width="150" Height="30" Click="Smonnthing2_Click" Margin="738,426,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ButtonPrimary}"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="688,48,60,255" Background="White">
+                        <Image x:Name="Smonnthing2"/>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="傅立葉變換">
+                <Grid Background="WhiteSmoke">
+                    <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectMainImage_Click3" Margin="110,426,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ButtonPrimary}"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="60,48,687,255" Background="White">
+                        <Image x:Name="MainImage3"/>
+                    </Border>
+                    <Button Content="傅立葉變換" Width="150" Height="30" Click="DiscreteFourierTransform_Click" Margin="0,426,0,0" VerticalAlignment="Top" Style="{StaticResource ButtonPrimary}"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="374,48,374,255" Background="White">
+                        <Image x:Name="DiscreteFourierTransform"/>
+                    </Border>
+                    <Button Content="逆傅立葉變換" Width="150" Height="30" Click="InverseDiscreteFourierTransform_Click" Margin="738,426,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ButtonPrimary}"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="688,48,60,255" Background="White">
+                        <Image x:Name="InverseDiscreteFourierTransform"/>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="關於">
+                <Grid>
+                    <Button Width="250" Height="250" Click="About_Click">
+                        <Image Source="/Image/about.png"/>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="設定">
+                <Grid>
+                    <Button Width="250" Height="250" Click="Settings_Click">
+                        <Image Source="/Image/settings.png"/>
+                    </Button>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</hc:Window>
