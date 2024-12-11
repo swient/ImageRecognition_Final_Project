@@ -210,11 +210,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\leo09\\Shortcut\\Downloads\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project.csproj",
+      "projectUniqueName": "C:\\Users\\leo09\\Shortcut\\Documents\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project.csproj",
       "projectName": "ImageRecognition_Final_Project",
-      "projectPath": "C:\\Users\\leo09\\Shortcut\\Downloads\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project.csproj",
+      "projectPath": "C:\\Users\\leo09\\Shortcut\\Documents\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project.csproj",
       "packagesPath": "C:\\Users\\leo09\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\leo09\\Shortcut\\Downloads\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project\\obj\\",
+      "outputPath": "C:\\Users\\leo09\\Shortcut\\Documents\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

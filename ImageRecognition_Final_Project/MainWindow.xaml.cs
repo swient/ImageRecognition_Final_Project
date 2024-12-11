@@ -21,6 +21,9 @@ namespace ImageRecognition_Final_Project
         private Bitmap? watermarkImage;
         private Bitmap? proImage;
         private MyImageManager myImageManager;
+        private double sliderValue;
+        double value;
+        public SharedViewModel ViewModel { get; set; }
 
         public MainWindow()
         {
@@ -28,6 +31,12 @@ namespace ImageRecognition_Final_Project
             watermarkImage = null;
             proImage = null;
             myImageManager = new MyImageManager(); // 初始化 myImageManager
+            sliderValue = 0.5;
+            value = 3.0;
+
+            ViewModel = new SharedViewModel();
+            DataContext = ViewModel;
+
             InitializeComponent();
         }
 
@@ -113,11 +122,38 @@ namespace ImageRecognition_Final_Project
                 HandyControl.Controls.MessageBox.Show("請先選擇主圖片和浮水印圖片！");
                 return;
             }
-            proImage = myImageManager.AddWatermark();
+
+            ColorMatrix colorMatrix = new()
+            {
+                Matrix33 = (float)sliderValue
+            };
+
+            proImage = myImageManager.AddWatermark(colorMatrix);
 
             // 顯示合成後的圖片
             GenerateImage.Source = BitmapToImageSource(proImage);
             HandyControl.Controls.Growl.Success("浮水印生成成功！");
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            sliderValue = e.NewValue;
+
+            if (oriImage != null && watermarkImage != null)
+            {
+                ColorMatrix colorMatrix = new()
+                {
+                    Matrix33 = (float)e.NewValue
+                };
+
+                myImageManager.AddWatermark(colorMatrix);
+
+                // 顯示合成後的圖片
+                GenerateImage.Source = BitmapToImageSource(myImageManager.proImage);
+                //HandyControl.Controls.Growl.Success("浮水印生成成功！");
+            }
+
+            //HandyControl.Controls.Growl.Info($"滑塊值: {e.NewValue}");
         }
 
         private void Smonnthing1_Click(object sender, RoutedEventArgs e)
@@ -127,11 +163,16 @@ namespace ImageRecognition_Final_Project
                 HandyControl.Controls.MessageBox.Show("請先選擇主圖片！");
                 return;
             }
+
+            ColorMatrix colorMatrix = new()
+            {
+                Matrix33 = (float)sliderValue
+            };
             myImageManager.Smonnthing1();
 
             // 顯示合成後的圖片
             Smonnthing1.Source = BitmapToImageSource(myImageManager.proImage);
-            HandyControl.Controls.Growl.Success("影像平滑化1成功！");
+            HandyControl.Controls.Growl.Success("高斯模糊成功！");
         }
 
         private void Smonnthing2_Click(object sender, RoutedEventArgs e)
@@ -141,11 +182,26 @@ namespace ImageRecognition_Final_Project
                 HandyControl.Controls.MessageBox.Show("請先選擇主圖片！");
                 return;
             }
-            myImageManager.Smonnthing2();
+            myImageManager.Smonnthing2((int)value);
 
             // 顯示合成後的圖片
             Smonnthing2.Source = BitmapToImageSource(myImageManager.proImage);
             HandyControl.Controls.Growl.Success("影像平滑化2成功！");
+        }
+
+        private void Slider_ValueChanged2(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            value = e.NewValue;
+            //if (oriImage != null)
+            //{
+            //    myImageManager.Smonnthing2((int)value);
+
+            //    // 顯示合成後的圖片
+            //    Smonnthing2.Source = BitmapToImageSource(myImageManager.proImage);
+            //    HandyControl.Controls.Growl.Success("模糊化2成功！");
+            //}
+
+            //HandyControl.Controls.Growl.Info($"滑塊值: {e.NewValue}");
         }
 
         private void DiscreteFourierTransform_Click(object sender, RoutedEventArgs e)

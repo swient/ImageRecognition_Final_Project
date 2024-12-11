@@ -21,7 +21,7 @@ internal class MyImageManager
             imag = new double[1, 1]; // 初始化 imag 欄位
         }
 
-        public Bitmap AddWatermark()
+        public Bitmap AddWatermark(ColorMatrix colorMatrix)
         {
             // 創建一個新的 Bitmap 來存儲合成後的圖片
             proImage = new Bitmap(oriImage.Width, oriImage.Height);
@@ -31,8 +31,8 @@ internal class MyImageManager
                 graphics.DrawImage(oriImage, new System.Drawing.Rectangle(0, 0, oriImage.Width, oriImage.Height));
 
                 // 設置浮水印的透明度
-                ColorMatrix colorMatrix = new ColorMatrix();
-                colorMatrix.Matrix33 = 0.5f; // 設置透明度為50%
+                //ColorMatrix colorMatrix = new ColorMatrix();
+                //colorMatrix.Matrix33 = 0.5f; // 設置透明度為50%
                 ImageAttributes imageAttributes = new ImageAttributes();
                 imageAttributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
@@ -63,7 +63,7 @@ internal class MyImageManager
                     new float[] {0, 1, 0, 0, 0},
                     new float[] {0, 0, 1, 0, 0},
                     new float[] {0, 0, 0, 1, 0},
-                    new float[] {0.1f, 0.1f, 0.1f, 0, 1}
+                    new float[] {0, 0, 0, 0, 1}
                 };
                 System.Drawing.Imaging.ColorMatrix colorMatrix = new System.Drawing.Imaging.ColorMatrix(colorMatrixElements);
                 imageAttributes.SetColorMatrix(colorMatrix, System.Drawing.Imaging.ColorMatrixFlag.Default, System.Drawing.Imaging.ColorAdjustType.Bitmap);
@@ -72,7 +72,7 @@ internal class MyImageManager
             }
         }
 
-        public void Smonnthing2()
+        public void Smonnthing2(int filter)
         {
             if (oriImage == null)
             {
@@ -83,8 +83,8 @@ internal class MyImageManager
             proImage = new Bitmap(oriImage.Width, oriImage.Height);
 
             // 使用均值濾波進行平滑化
-            int filterWidth = 3;
-            int filterHeight = 3;
+            int filterWidth = filter;
+            int filterHeight = filter;
             int w = oriImage.Width;
             int h = oriImage.Height;
 

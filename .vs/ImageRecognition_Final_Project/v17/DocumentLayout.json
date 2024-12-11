@@ -11,12 +11,16 @@
       "RelativeMoniker": "D:0:0:{620980A1-3FA0-46FC-91CF-9B91C21A06F7}|ImageRecognition_Final_Project\\ImageRecognition_Final_Project.csproj|solutionrelative:imagerecognition_final_project\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{620980A1-3FA0-46FC-91CF-9B91C21A06F7}|ImageRecognition_Final_Project\\ImageRecognition_Final_Project.csproj|c:\\users\\leo09\\shortcut\\documents\\imagerecognition_final_project\\imagerecognition_final_project\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{620980A1-3FA0-46FC-91CF-9B91C21A06F7}|ImageRecognition_Final_Project\\ImageRecognition_Final_Project.csproj|solutionrelative:imagerecognition_final_project\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{620980A1-3FA0-46FC-91CF-9B91C21A06F7}|ImageRecognition_Final_Project\\ImageRecognition_Final_Project.csproj|c:\\users\\leo09\\shortcut\\documents\\imagerecognition_final_project\\imagerecognition_final_project\\sharedviewmodel\\sharedviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{620980A1-3FA0-46FC-91CF-9B91C21A06F7}|ImageRecognition_Final_Project\\ImageRecognition_Final_Project.csproj|solutionrelative:imagerecognition_final_project\\sharedviewmodel\\sharedviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{620980A1-3FA0-46FC-91CF-9B91C21A06F7}|ImageRecognition_Final_Project\\ImageRecognition_Final_Project.csproj|c:\\users\\leo09\\shortcut\\documents\\imagerecognition_final_project\\imagerecognition_final_project\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{620980A1-3FA0-46FC-91CF-9B91C21A06F7}|ImageRecognition_Final_Project\\ImageRecognition_Final_Project.csproj|solutionrelative:imagerecognition_final_project\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{620980A1-3FA0-46FC-91CF-9B91C21A06F7}|ImageRecognition_Final_Project\\ImageRecognition_Final_Project.csproj|c:\\users\\leo09\\shortcut\\documents\\imagerecognition_final_project\\imagerecognition_final_project\\program\\myimagemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{620980A1-3FA0-46FC-91CF-9B91C21A06F7}|ImageRecognition_Final_Project\\ImageRecognition_Final_Project.csproj|solutionrelative:imagerecognition_final_project\\program\\myimagemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,24 +30,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
+              "Title": "MyImageManager.cs",
+              "DocumentMoniker": "C:\\Users\\leo09\\Shortcut\\Documents\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project\\Program\\MyImageManager.cs",
+              "RelativeDocumentMoniker": "ImageRecognition_Final_Project\\Program\\MyImageManager.cs",
+              "ToolTip": "C:\\Users\\leo09\\Shortcut\\Documents\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project\\Program\\MyImageManager.cs",
+              "RelativeToolTip": "ImageRecognition_Final_Project\\Program\\MyImageManager.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-11T18:41:32.327Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "SharedViewModel.cs",
               "DocumentMoniker": "C:\\Users\\leo09\\Shortcut\\Documents\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project\\SharedViewModel\\SharedViewModel.cs",
               "RelativeDocumentMoniker": "ImageRecognition_Final_Project\\SharedViewModel\\SharedViewModel.cs",
               "ToolTip": "C:\\Users\\leo09\\Shortcut\\Documents\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project\\SharedViewModel\\SharedViewModel.cs",
               "RelativeToolTip": "ImageRecognition_Final_Project\\SharedViewModel\\SharedViewModel.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAUwDgAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAADgAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-11T18:07:59.906Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\leo09\\Shortcut\\Documents\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project\\App.xaml",
               "RelativeDocumentMoniker": "ImageRecognition_Final_Project\\App.xaml",
@@ -61,7 +78,7 @@
               "RelativeDocumentMoniker": "ImageRecognition_Final_Project\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\leo09\\Shortcut\\Documents\\ImageRecognition_Final_Project\\ImageRecognition_Final_Project\\MainWindow.xaml.cs",
               "RelativeToolTip": "ImageRecognition_Final_Project\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAMsAAAAAAAAAAADwv9wAAABHAAAAAAAAAA==",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAAANwAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-10T20:45:02.386Z",
               "EditorCaption": ""
