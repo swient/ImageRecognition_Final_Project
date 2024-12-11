@@ -19,7 +19,7 @@
                             <Grid Visibility="Hidden">
                                 <Button Width="0" Height="20"/>
                             </Grid>
-                            <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectMainImage_Click" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectMainImage_Click1" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
@@ -37,7 +37,7 @@
                             <Grid Visibility="Hidden">
                                 <Button Width="0" Height="20"/>
                             </Grid>
-                            <Button Content="生成圖片" Width="150" Height="30" Click="GenerateImage_Click" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="生成圖片" Width="150" Height="30" Click="GenerateImage_Click1" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
                             <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">

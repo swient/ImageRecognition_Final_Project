@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ImageRecognition_Final_Project")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3eb9e2e70bb60a59bb0897ad29fa82e3c6b9875")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+94e096da04b441dc7d2fbfd7ca3ec916e21a9eae")]
 [assembly: System.Reflection.AssemblyProductAttribute("ImageRecognition_Final_Project")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ImageRecognition_Final_Project")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

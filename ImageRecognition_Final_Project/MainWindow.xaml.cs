@@ -67,7 +67,7 @@ namespace ImageRecognition_Final_Project
             return bitmapImage;
         }
 
-        private void SelectMainImage_Click(object sender, RoutedEventArgs e)
+        private void SelectMainImage_Click1(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new();
             openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
@@ -115,7 +115,7 @@ namespace ImageRecognition_Final_Project
             }
         }
 
-        private void GenerateImage_Click(object sender, RoutedEventArgs e)
+        private void GenerateImage_Click1(object sender, RoutedEventArgs e)
         {
             if (oriImage == null || watermarkImage == null)
             {
