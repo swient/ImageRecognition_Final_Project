@@ -132,6 +132,9 @@ namespace ImageRecognition_Final_Project
 
             // 顯示合成後的圖片
             GenerateImage.Source = BitmapToImageSource(proImage);
+            GenerateImage_save1.Source = BitmapToImageSource(proImage);
+            GenerateImage_save2.Source = BitmapToImageSource(proImage);
+            GenerateImage_save3.Source = BitmapToImageSource(proImage);
             HandyControl.Controls.Growl.Success("浮水印生成成功！");
         }
 
@@ -150,6 +153,9 @@ namespace ImageRecognition_Final_Project
 
                 // 顯示合成後的圖片
                 GenerateImage.Source = BitmapToImageSource(myImageManager.proImage);
+                GenerateImage_save1.Source = BitmapToImageSource(myImageManager.proImage);
+                GenerateImage_save2.Source = BitmapToImageSource(myImageManager.proImage);
+                GenerateImage_save3.Source = BitmapToImageSource(myImageManager.proImage);
                 //HandyControl.Controls.Growl.Success("浮水印生成成功！");
             }
 
@@ -172,6 +178,9 @@ namespace ImageRecognition_Final_Project
 
             // 顯示合成後的圖片
             Smonnthing1.Source = BitmapToImageSource(myImageManager.proImage);
+            Smonnthing1_save1.Source = BitmapToImageSource(myImageManager.proImage);
+            Smonnthing1_save2.Source = BitmapToImageSource(myImageManager.proImage);
+            Smonnthing1_save3.Source = BitmapToImageSource(myImageManager.proImage);
             HandyControl.Controls.Growl.Success("高斯模糊成功！");
         }
 
@@ -186,6 +195,9 @@ namespace ImageRecognition_Final_Project
 
             // 顯示合成後的圖片
             Smonnthing2.Source = BitmapToImageSource(myImageManager.proImage);
+            Smonnthing2_save1.Source = BitmapToImageSource(myImageManager.proImage);
+            Smonnthing2_save2.Source = BitmapToImageSource(myImageManager.proImage);
+            Smonnthing2_save3.Source = BitmapToImageSource(myImageManager.proImage);
             HandyControl.Controls.Growl.Success("影像平滑化2成功！");
         }
 
@@ -215,6 +227,9 @@ namespace ImageRecognition_Final_Project
 
             // 顯示合成後的圖片
             DiscreteFourierTransform.Source = BitmapToImageSource(myImageManager.proImage);
+            DiscreteFourierTransform_save1.Source = BitmapToImageSource(myImageManager.proImage);
+            DiscreteFourierTransform_save2.Source = BitmapToImageSource(myImageManager.proImage);
+            DiscreteFourierTransform_save3.Source = BitmapToImageSource(myImageManager.proImage);
             HandyControl.Controls.Growl.Success("傅立葉變換成功！");
         }
 
@@ -229,6 +244,9 @@ namespace ImageRecognition_Final_Project
 
             // 顯示合成後的圖片
             InverseDiscreteFourierTransform.Source = BitmapToImageSource(myImageManager.proImage);
+            InverseDiscreteFourierTransform_save1.Source = BitmapToImageSource(myImageManager.proImage);
+            InverseDiscreteFourierTransform_save2.Source = BitmapToImageSource(myImageManager.proImage);
+            InverseDiscreteFourierTransform_save3.Source = BitmapToImageSource(myImageManager.proImage);
             HandyControl.Controls.Growl.Success("逆傅立葉變換成功！");
         }
     }

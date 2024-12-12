@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ImageRecognition_Final_Project"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
-        Title="影像辨識-期末專題" MinHeight="700" MinWidth="1400" Icon="/Image/ImageRecognition_icon.ico">
+        Title="影像辨識-期末專題" MinHeight="800" MinWidth="1600" Icon="/Image/ImageRecognition_icon.ico">
     <hc:TransitioningContentControl>
         <TabControl Style="{StaticResource TabControlInLine}">
             <TabItem Header="浮水印">
@@ -45,22 +45,27 @@
                                 <TabControl TabStripPlacement="Left" Style="{StaticResource TabControlSliding}">
                                     <TabItem Header="浮水印">
                                         <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="GenerateImage_save1"/>
                                         </Border>
                                     </TabItem>
                                     <TabItem Header="高斯平滑化">
                                         <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="Smonnthing1_save1"/>
                                         </Border>
                                     </TabItem>
                                     <TabItem Header="一般平滑化">
                                         <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="Smonnthing2_save1"/>
                                         </Border>
                                     </TabItem>
                                     <TabItem Header="傅立葉變換">
                                         <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="DiscreteFourierTransform_save1"/>
                                         </Border>
                                     </TabItem>
                                     <TabItem Header="逆傅立葉變換">
                                         <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="InverseDiscreteFourierTransform_save1"/>
                                         </Border>
                                     </TabItem>
                                 </TabControl>
@@ -99,18 +104,38 @@
                             </Grid>
                             <Button Content="平滑化2" Width="150" Height="30" Click="Smonnthing2_Click" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
-                        <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
-                            <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
-                                <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
-                                    <Button Content="儲存圖片" Width="100" Height="30" Style="{StaticResource ButtonPrimary}"/>
-                                    <CheckBox Content="浮水印" IsChecked="{Binding IsChecked1}"/>
-                                    <CheckBox Content="高斯平滑化" IsChecked="{Binding IsChecked2}"/>
-                                    <CheckBox Content="一般平滑化" IsChecked="{Binding IsChecked3}"/>
-                                    <CheckBox Content="傅立葉變換" IsChecked="{Binding IsChecked4}"/>
-                                    <CheckBox Content="逆傅立葉變換" IsChecked="{Binding IsChecked5}"/>
-                                </hc:UniformSpacingPanel>
-                            </Border>
-                        </hc:UniformSpacingPanel>
+                        <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
+                            <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
+                                <Button Content="儲存圖片" Width="100" Height="30" Style="{StaticResource ButtonPrimary}"/>
+                                <TabControl TabStripPlacement="Left" Style="{StaticResource TabControlSliding}">
+                                    <TabItem Header="浮水印">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="GenerateImage_save2"/>
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="高斯平滑化">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="Smonnthing1_save2"/>
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="一般平滑化">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="Smonnthing2_save2"/>
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="傅立葉變換">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="DiscreteFourierTransform_save2"/>
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="逆傅立葉變換">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="InverseDiscreteFourierTransform_save2"/>
+                                        </Border>
+                                    </TabItem>
+                                </TabControl>
+                            </hc:UniformSpacingPanel>
+                        </Border>
                     </hc:UniformSpacingPanel>
                 </Grid>
             </TabItem>
@@ -144,18 +169,38 @@
                             </Grid>
                             <Button Content="逆傅立葉變換" Width="150" Height="30" Click="InverseDiscreteFourierTransform_Click" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
-                        <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
-                            <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
-                                <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
-                                    <Button Content="儲存圖片" Width="100" Height="30" Style="{StaticResource ButtonPrimary}"/>
-                                    <CheckBox Content="浮水印" IsChecked="{Binding IsChecked1}"/>
-                                    <CheckBox Content="高斯平滑化" IsChecked="{Binding IsChecked2}"/>
-                                    <CheckBox Content="一般平滑化" IsChecked="{Binding IsChecked3}"/>
-                                    <CheckBox Content="傅立葉變換" IsChecked="{Binding IsChecked4}"/>
-                                    <CheckBox Content="逆傅立葉變換" IsChecked="{Binding IsChecked5}"/>
-                                </hc:UniformSpacingPanel>
-                            </Border>
-                        </hc:UniformSpacingPanel>
+                        <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
+                            <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
+                                <Button Content="儲存圖片" Width="100" Height="30" Style="{StaticResource ButtonPrimary}"/>
+                                <TabControl TabStripPlacement="Left" Style="{StaticResource TabControlSliding}">
+                                    <TabItem Header="浮水印">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="GenerateImage_save3"/>
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="高斯平滑化">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="Smonnthing1_save3"/>
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="一般平滑化">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="Smonnthing2_save3"/>
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="傅立葉變換">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="DiscreteFourierTransform_save3"/>
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="逆傅立葉變換">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                            <Image x:Name="InverseDiscreteFourierTransform_save3"/>
+                                        </Border>
+                                    </TabItem>
+                                </TabControl>
+                            </hc:UniformSpacingPanel>
+                        </Border>
                     </hc:UniformSpacingPanel>
                 </Grid>
             </TabItem>
