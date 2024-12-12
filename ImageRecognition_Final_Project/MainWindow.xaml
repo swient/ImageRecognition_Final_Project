@@ -39,18 +39,33 @@
                             </Grid>
                             <Button Content="生成圖片" Width="150" Height="30" Click="GenerateImage_Click1" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
-                        <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
-                            <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
-                                <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
-                                    <Button Content="儲存圖片" Width="100" Height="30" Style="{StaticResource ButtonPrimary}"/>
-                                    <CheckBox Content="浮水印" IsChecked="{Binding IsChecked1}"/>
-                                    <CheckBox Content="高斯平滑化" IsChecked="{Binding IsChecked2}"/>
-                                    <CheckBox Content="一般平滑化" IsChecked="{Binding IsChecked3}"/>
-                                    <CheckBox Content="傅立葉變換" IsChecked="{Binding IsChecked4}"/>
-                                    <CheckBox Content="逆傅立葉變換" IsChecked="{Binding IsChecked5}"/>
-                                </hc:UniformSpacingPanel>
-                            </Border>
-                        </hc:UniformSpacingPanel>
+                        <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
+                            <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
+                                <Button Content="儲存圖片" Width="100" Height="30" Style="{StaticResource ButtonPrimary}"/>
+                                <TabControl TabStripPlacement="Left" Style="{StaticResource TabControlSliding}">
+                                    <TabItem Header="浮水印">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="高斯平滑化">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="一般平滑化">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="傅立葉變換">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                        </Border>
+                                    </TabItem>
+                                    <TabItem Header="逆傅立葉變換">
+                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                        </Border>
+                                    </TabItem>
+                                </TabControl>
+                            </hc:UniformSpacingPanel>
+                        </Border>
                     </hc:UniformSpacingPanel>
                 </Grid>
             </TabItem>
