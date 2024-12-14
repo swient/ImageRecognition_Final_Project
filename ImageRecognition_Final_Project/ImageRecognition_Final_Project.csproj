@@ -6,12 +6,17 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Image\ImageRecognition_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="about.png" />
     <None Remove="ImageRecognition_icom.ico" />
     <None Remove="settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Image\ImageRecognition_icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
