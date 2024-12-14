@@ -41,29 +41,29 @@
                         </hc:UniformSpacingPanel>
                         <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
                             <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
-                                <Button Content="儲存圖片" Width="100" Height="30" Style="{StaticResource ButtonPrimary}"/>
-                                <TabControl TabStripPlacement="Left" Style="{StaticResource TabControlSliding}">
-                                    <TabItem Header="浮水印">
+                                <Button Content="儲存圖片" Width="100" Height="30" Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
+                                <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged"  Style="{StaticResource TabControlSliding}">
+                                    <TabItem Header="浮水印" Name="Watermark">
                                         <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                             <Image x:Name="GenerateImage_save1"/>
                                         </Border>
                                     </TabItem>
-                                    <TabItem Header="高斯平滑化">
+                                    <TabItem Header="高斯平滑化" Name="Gaussian_smoothing">
                                         <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                             <Image x:Name="Smonnthing1_save1"/>
                                         </Border>
                                     </TabItem>
-                                    <TabItem Header="一般平滑化">
+                                    <TabItem Header="一般平滑化" Name="general_smoothing">
                                         <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                             <Image x:Name="Smonnthing2_save1"/>
                                         </Border>
                                     </TabItem>
-                                    <TabItem Header="傅立葉變換">
+                                    <TabItem Header="傅立葉變換" Name="Fourier_transform">
                                         <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                             <Image x:Name="DiscreteFourierTransform_save1"/>
                                         </Border>
                                     </TabItem>
-                                    <TabItem Header="逆傅立葉變換">
+                                    <TabItem Header="逆傅立葉變換" Name="Inverse_Fourier_Transform">
                                         <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                             <Image x:Name="InverseDiscreteFourierTransform_save1"/>
                                         </Border>
@@ -72,6 +72,7 @@
                             </hc:UniformSpacingPanel>
                         </Border>
                     </hc:UniformSpacingPanel>
+                    <Image HorizontalAlignment="Left" Height="62" Margin="810,609,0,0" VerticalAlignment="Top" Width="115"/>
                 </Grid>
             </TabItem>
             <TabItem Header="平滑化">
@@ -106,8 +107,8 @@
                         </hc:UniformSpacingPanel>
                         <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
                             <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
-                                <Button Content="儲存圖片" Width="100" Height="30" Style="{StaticResource ButtonPrimary}"/>
-                                <TabControl TabStripPlacement="Left" Style="{StaticResource TabControlSliding}">
+                                <Button Content="儲存圖片" Width="100" Height="30" Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
+                                <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged" Style="{StaticResource TabControlSliding}">
                                     <TabItem Header="浮水印">
                                         <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                             <Image x:Name="GenerateImage_save2"/>
@@ -171,8 +172,8 @@
                         </hc:UniformSpacingPanel>
                         <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
                             <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
-                                <Button Content="儲存圖片" Width="100" Height="30" Style="{StaticResource ButtonPrimary}"/>
-                                <TabControl TabStripPlacement="Left" Style="{StaticResource TabControlSliding}">
+                                <Button Content="儲存圖片" Width="100" Height="30"  Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
+                                <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged" Style="{StaticResource TabControlSliding}">
                                     <TabItem Header="浮水印">
                                         <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                             <Image x:Name="GenerateImage_save3"/>
