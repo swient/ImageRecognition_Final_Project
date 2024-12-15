@@ -35,6 +35,18 @@ internal class MyImageManager
                 //colorMatrix.Matrix33 = 0.5f; // 設置透明度為50%
                 ImageAttributes imageAttributes = new ImageAttributes();
                 imageAttributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+                //防止浮水印圖片大於原圖
+                if (watermarkImage.Width > oriImage.Width || watermarkImage.Height > oriImage.Height)
+                {
+                    if (watermarkImage.Width >= watermarkImage.Height)
+                    {
+                        watermarkImage = ResizeImage(watermarkImage, oriImage.Width - 10, watermarkImage.Height * (oriImage.Width - 10) / watermarkImage.Width);
+                    }
+                    else
+                    {
+                        watermarkImage = ResizeImage(watermarkImage, watermarkImage.Width * (oriImage.Height - 10) / watermarkImage.Height, oriImage.Height - 10);
+                    }
+                }
 
                 int x = oriImage.Width - watermarkImage.Width - 10; // 右邊距 10px
                 int y = oriImage.Height - watermarkImage.Height - 10; // 下邊距 10px
@@ -244,6 +256,20 @@ internal class MyImageManager
                     proImage.SetPixel(x, y, Color.FromArgb(p, p, p));
                 }
             }
+        }
+        public Bitmap ResizeImage(Image originalImage, int targetWidth, int targetHeight)
+        {
+
+            Bitmap resizedImage = new Bitmap(targetWidth, targetHeight);
+            using (Graphics graphics = Graphics.FromImage(resizedImage))
+            {
+                graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+                graphics.DrawImage(originalImage, 0, 0, targetWidth, targetHeight);
+            }
+            return resizedImage;
         }
     }
 }
