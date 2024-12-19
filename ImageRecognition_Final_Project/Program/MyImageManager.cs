@@ -1,10 +1,9 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace ImageRecognition_Final_Project
+namespace ImageRecognition_Final_Project.Program
 {
-    
-internal class MyImageManager
+    internal class MyImageManager
     {
         public Bitmap oriImage;
         public Bitmap watermarkImage;
@@ -28,7 +27,7 @@ internal class MyImageManager
 
             using (Graphics graphics = Graphics.FromImage(proImage))
             {
-                graphics.DrawImage(oriImage, new System.Drawing.Rectangle(0, 0, oriImage.Width, oriImage.Height));
+                graphics.DrawImage(oriImage, new Rectangle(0, 0, oriImage.Width, oriImage.Height));
 
                 // 設置浮水印的透明度
                 //ColorMatrix colorMatrix = new ColorMatrix();
@@ -50,7 +49,7 @@ internal class MyImageManager
 
                 int x = oriImage.Width - watermarkImage.Width - 10; // 右邊距 10px
                 int y = oriImage.Height - watermarkImage.Height - 10; // 下邊距 10px
-                graphics.DrawImage(watermarkImage, new System.Drawing.Rectangle(x, y, watermarkImage.Width, watermarkImage.Height), 0, 0, watermarkImage.Width, watermarkImage.Height, GraphicsUnit.Pixel, imageAttributes);
+                graphics.DrawImage(watermarkImage, new Rectangle(x, y, watermarkImage.Width, watermarkImage.Height), 0, 0, watermarkImage.Width, watermarkImage.Height, GraphicsUnit.Pixel, imageAttributes);
             }
 
             return proImage;
@@ -69,7 +68,7 @@ internal class MyImageManager
             using (Graphics graphics = Graphics.FromImage(proImage))
             {
                 // 使用高斯模糊進行平滑化
-                System.Drawing.Imaging.ImageAttributes imageAttributes = new System.Drawing.Imaging.ImageAttributes();
+                ImageAttributes imageAttributes = new ImageAttributes();
                 float[][] colorMatrixElements = {
                     new float[] {1, 0, 0, 0, 0},
                     new float[] {0, 1, 0, 0, 0},
@@ -77,10 +76,10 @@ internal class MyImageManager
                     new float[] {0, 0, 0, 1, 0},
                     new float[] {0, 0, 0, 0, 1}
                 };
-                System.Drawing.Imaging.ColorMatrix colorMatrix = new System.Drawing.Imaging.ColorMatrix(colorMatrixElements);
-                imageAttributes.SetColorMatrix(colorMatrix, System.Drawing.Imaging.ColorMatrixFlag.Default, System.Drawing.Imaging.ColorAdjustType.Bitmap);
+                ColorMatrix colorMatrix = new ColorMatrix(colorMatrixElements);
+                imageAttributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
-                graphics.DrawImage(oriImage, new System.Drawing.Rectangle(0, 0, oriImage.Width, oriImage.Height), 0, 0, oriImage.Width, oriImage.Height, GraphicsUnit.Pixel, imageAttributes);
+                graphics.DrawImage(oriImage, new Rectangle(0, 0, oriImage.Width, oriImage.Height), 0, 0, oriImage.Width, oriImage.Height, GraphicsUnit.Pixel, imageAttributes);
             }
         }
 
@@ -141,7 +140,7 @@ internal class MyImageManager
             real = new double[M, N];
             imag = new double[M, N];
             double[,] magnitude = new double[M, N];
-            double[,]pixel = new double[M, N];
+            double[,] pixel = new double[M, N];
             proImage = new Bitmap(M, N);
 
             double _max = 0;
@@ -169,8 +168,8 @@ internal class MyImageManager
                     }
 
                     // 將實部和虛部/M*N
-                    real[u, v] /= (M * N);
-                    imag[u, v] /= (M * N);
+                    real[u, v] /= M * N;
+                    imag[u, v] /= M * N;
 
                     // 平方相加開根號
                     magnitude[u, v] = Math.Sqrt(real[u, v] * real[u, v] + imag[u, v] * imag[u, v]);

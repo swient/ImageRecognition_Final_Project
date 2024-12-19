@@ -14,30 +14,30 @@
                     <hc:UniformSpacingPanel Margin="80" Spacing="80" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                <Image x:Name="MainImage"/>
+                                <Image x:Name="WatermarkMainImage"/>
                             </Border>
                             <Grid Visibility="Hidden">
                                 <Button Width="0" Height="20"/>
                             </Grid>
-                            <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectMainImage_Click1" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectWatermarkMainImage_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                 <Image x:Name="WatermarkImage"/>
                             </Border>
                             <Grid>
-                                <Slider Height="20" Width="200" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Top" IsSnapToTickEnabled="True" Maximum="1" Value="0.5" TickFrequency="0.01" ValueChanged="Slider_ValueChanged"/>
+                                <Slider Height="20" Width="200" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Top" IsSnapToTickEnabled="True" Maximum="1" Value="0.5" TickFrequency="0.01" ValueChanged="Watermark_Slider_Value"/>
                             </Grid>
-                            <Button Content="選擇浮水印" Width="150" Height="30" Click="SelectWatermark_Click" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="選擇浮水印" Width="150" Height="30" Click="SelectWatermark_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                <Image x:Name="GenerateImage"/>
+                                <Image x:Name="WatermarkGenerateImage"/>
                             </Border>
                             <Grid Visibility="Hidden">
                                 <Button Width="0" Height="20"/>
                             </Grid>
-                            <Button Content="生成圖片" Width="150" Height="30" Click="GenerateImage_Click1" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="生成圖片" Width="150" Height="30" Click="WatermarkGenerateImage_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
                             <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
@@ -80,30 +80,30 @@
                     <hc:UniformSpacingPanel Margin="80" Spacing="80" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                <Image x:Name="MainImage2"/>
+                                <Image x:Name="SmonnthingMainImage"/>
                             </Border>
                             <Grid Visibility="Hidden">
                                 <Button Width="0" Height="20"/>
                             </Grid>
-                            <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectMainImage_Click2" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectSmonnthingMainImage_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                <Image x:Name="Smonnthing1"/>
+                                <Image x:Name="GaussianSmonnthing"/>
                             </Border>
                             <Grid>
-                                <Slider Height="20" Width="200" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Top" IsSnapToTickEnabled="True" Maximum="10" Value="3" TickFrequency="1" ValueChanged="Slider_ValueChanged2"/>
+                                <Slider Height="20" Width="200" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Top" IsSnapToTickEnabled="True" Maximum="10" Value="3" TickFrequency="1" ValueChanged="NormallySmonnthing_Slider_Value"/>
                             </Grid>
-                            <Button Content="高斯平滑化" Width="150" Height="30" Click="Smonnthing1_Click" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="高斯平滑化" Width="150" Height="30" Click="GaussianSmonnthing_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                <Image x:Name="Smonnthing2"/>
+                                <Image x:Name="NormallySmonnthing"/>
                             </Border>
                             <Grid Visibility="Hidden">
                                 <Button Width="0" Height="20"/>
                             </Grid>
-                            <Button Content="平滑化2" Width="150" Height="30" Click="Smonnthing2_Click" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="一般平滑" Width="150" Height="30" Click="NormallySmonnthing_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
                             <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
@@ -145,12 +145,12 @@
                     <hc:UniformSpacingPanel Margin="80" Spacing="80" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                <Image x:Name="MainImage3"/>
+                                <Image x:Name="FourierTransformMainImage"/>
                             </Border>
                             <Grid Visibility="Hidden">
                                 <Button Width="0" Height="20"/>
                             </Grid>
-                            <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectMainImage_Click3" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectFourierTransformMainImage_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
@@ -159,7 +159,7 @@
                             <Grid Visibility="Hidden">
                                 <Button Width="0" Height="20"/>
                             </Grid>
-                            <Button Content="傅立葉變換" Width="150" Height="30" Click="DiscreteFourierTransform_Click" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="傅立葉變換" Width="150" Height="30" Click="DiscreteFourierTransform_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
@@ -168,7 +168,7 @@
                             <Grid Visibility="Hidden">
                                 <Button Width="0" Height="20"/>
                             </Grid>
-                            <Button Content="逆傅立葉變換" Width="150" Height="30" Click="InverseDiscreteFourierTransform_Click" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="逆傅立葉變換" Width="150" Height="30" Click="InverseDiscreteFourierTransform_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
                             <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">

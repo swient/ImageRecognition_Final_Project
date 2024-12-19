@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using ImageRecognition_Final_Project.Program;
+using ImageRecognition_Final_Project.SharedView;
+using Microsoft.Win32;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -24,10 +26,10 @@ namespace ImageRecognition_Final_Project
         private Bitmap? proImage;
         private Bitmap? saveImage;
         private MyImageManager myImageManager;
+        private SharedViewModel sharedViewModel;
         private double sliderValue;
         double value;
-        int current_save_select = 0;    //追蹤更新
-        public SharedViewModel ViewModel { get; set; }
+        int current_save_select = 0; //追蹤更新
 
         public MainWindow()
         {
@@ -35,43 +37,14 @@ namespace ImageRecognition_Final_Project
             watermarkImage = null;
             proImage = null;
             myImageManager = new MyImageManager(); // 初始化 myImageManager
+            sharedViewModel = new SharedViewModel(); // 初始化 sharedViewModel
             sliderValue = 0.5;
             value = 3.0;
-
-            ViewModel = new SharedViewModel();
-            DataContext = ViewModel;
 
             InitializeComponent();
         }
 
-        private void Settings_Click(object sender, RoutedEventArgs e)
-        {
-            // 創建並顯示設定窗口
-            SettingsWindow settingsWindow = new SettingsWindow();
-            settingsWindow.ShowDialog();
-        }
-
-        private void About_Click(object sender, RoutedEventArgs e)
-        {
-            // 創建並顯示關於窗口
-            AboutWindow aboutWindow = new AboutWindow();
-            aboutWindow.ShowDialog();
-        }
-
-        private static BitmapImage BitmapToImageSource(Bitmap bitmap)
-        {
-            using MemoryStream memory = new MemoryStream();
-            bitmap.Save(memory, ImageFormat.Bmp);
-            memory.Position = 0;
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            bitmapImage.StreamSource = memory;
-            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-            bitmapImage.EndInit();
-            return bitmapImage;
-        }
-
-        private void SelectMainImage_Click1(object sender, RoutedEventArgs e)
+        private void SelectWatermarkMainImage_Button(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new();
             openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
@@ -79,11 +52,11 @@ namespace ImageRecognition_Final_Project
             {
                 oriImage = new Bitmap(openFileDialog.FileName);
                 myImageManager.oriImage = oriImage;
-                MainImage.Source = BitmapToImageSource(oriImage);
+                WatermarkMainImage.Source = BitmapToImageSource(oriImage);
             }
         }
 
-        private void SelectMainImage_Click2(object sender, RoutedEventArgs e)
+        private void SelectSmonnthingMainImage_Button(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new();
             openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
@@ -91,11 +64,11 @@ namespace ImageRecognition_Final_Project
             {
                 oriImage = new Bitmap(openFileDialog.FileName);
                 myImageManager.oriImage = oriImage;
-                MainImage2.Source = BitmapToImageSource(oriImage);
+                SmonnthingMainImage.Source = BitmapToImageSource(oriImage);
             }
         }
 
-        private void SelectMainImage_Click3(object sender, RoutedEventArgs e)
+        private void SelectFourierTransformMainImage_Button(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new();
             openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
@@ -103,11 +76,11 @@ namespace ImageRecognition_Final_Project
             {
                 oriImage = new Bitmap(openFileDialog.FileName);
                 myImageManager.oriImage = oriImage;
-                MainImage3.Source = BitmapToImageSource(oriImage);
+                FourierTransformMainImage.Source = BitmapToImageSource(oriImage);
             }
         }
 
-        private void SelectWatermark_Click(object sender, RoutedEventArgs e)
+        private void SelectWatermark_Button(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new();
             openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
@@ -119,7 +92,7 @@ namespace ImageRecognition_Final_Project
             }
         }
 
-        private void GenerateImage_Click1(object sender, RoutedEventArgs e)
+        private void WatermarkGenerateImage_Button(object sender, RoutedEventArgs e)
         {
             if (oriImage == null || watermarkImage == null)
             {
@@ -135,7 +108,7 @@ namespace ImageRecognition_Final_Project
             proImage = myImageManager.AddWatermark(colorMatrix);
 
             // 顯示合成後的圖片
-            GenerateImage.Source = BitmapToImageSource(proImage);
+            WatermarkGenerateImage.Source = BitmapToImageSource(proImage);
             GenerateImage_save1.Source = BitmapToImageSource(proImage);
             GenerateImage_save2.Source = BitmapToImageSource(proImage);
             GenerateImage_save3.Source = BitmapToImageSource(proImage);
@@ -144,11 +117,9 @@ namespace ImageRecognition_Final_Project
             //防止未選擇圖片儲存bug
             if (current_save_select == 0)
                 saveImage = ConvertImageSourceToBitmap(GenerateImage_save1.Source);
-
-
         }
 
-        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void Watermark_Slider_Value(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             sliderValue = e.NewValue;
 
@@ -162,7 +133,7 @@ namespace ImageRecognition_Final_Project
                 myImageManager.AddWatermark(colorMatrix);
 
                 // 顯示合成後的圖片
-                GenerateImage.Source = BitmapToImageSource(myImageManager.proImage);
+                WatermarkGenerateImage.Source = BitmapToImageSource(myImageManager.proImage);
                 GenerateImage_save1.Source = BitmapToImageSource(myImageManager.proImage);
                 GenerateImage_save2.Source = BitmapToImageSource(myImageManager.proImage);
                 GenerateImage_save3.Source = BitmapToImageSource(myImageManager.proImage);
@@ -172,7 +143,7 @@ namespace ImageRecognition_Final_Project
             //HandyControl.Controls.Growl.Info($"滑塊值: {e.NewValue}");
         }
 
-        private void Smonnthing1_Click(object sender, RoutedEventArgs e)
+        private void GaussianSmonnthing_Button(object sender, RoutedEventArgs e)
         {
             if (oriImage == null)
             {
@@ -187,7 +158,7 @@ namespace ImageRecognition_Final_Project
             myImageManager.Smonnthing1();
 
             // 顯示合成後的圖片
-            Smonnthing1.Source = BitmapToImageSource(myImageManager.proImage);
+            GaussianSmonnthing.Source = BitmapToImageSource(myImageManager.proImage);
             Smonnthing1_save1.Source = BitmapToImageSource(myImageManager.proImage);
             Smonnthing1_save2.Source = BitmapToImageSource(myImageManager.proImage);
             Smonnthing1_save3.Source = BitmapToImageSource(myImageManager.proImage);
@@ -196,7 +167,7 @@ namespace ImageRecognition_Final_Project
                 saveImage = ConvertImageSourceToBitmap(GenerateImage_save1.Source);
         }
 
-        private void Smonnthing2_Click(object sender, RoutedEventArgs e)
+        private void NormallySmonnthing_Button(object sender, RoutedEventArgs e)
         {
             if (oriImage == null)
             {
@@ -206,16 +177,16 @@ namespace ImageRecognition_Final_Project
             myImageManager.Smonnthing2((int)value);
 
             // 顯示合成後的圖片
-            Smonnthing2.Source = BitmapToImageSource(myImageManager.proImage);
+            NormallySmonnthing.Source = BitmapToImageSource(myImageManager.proImage);
             Smonnthing2_save1.Source = BitmapToImageSource(myImageManager.proImage);
             Smonnthing2_save2.Source = BitmapToImageSource(myImageManager.proImage);
             Smonnthing2_save3.Source = BitmapToImageSource(myImageManager.proImage);
-            HandyControl.Controls.Growl.Success("影像平滑化2成功！");
+            HandyControl.Controls.Growl.Success("一般平滑化成功！");
             if (current_save_select == 2)
                 saveImage = ConvertImageSourceToBitmap(GenerateImage_save1.Source);
         }
 
-        private void Slider_ValueChanged2(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void NormallySmonnthing_Slider_Value(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             value = e.NewValue;
             //if (oriImage != null)
@@ -230,7 +201,7 @@ namespace ImageRecognition_Final_Project
             //HandyControl.Controls.Growl.Info($"滑塊值: {e.NewValue}");
         }
 
-        private void DiscreteFourierTransform_Click(object sender, RoutedEventArgs e)
+        private void DiscreteFourierTransform_Button(object sender, RoutedEventArgs e)
         {
             if (oriImage == null)
             {
@@ -250,7 +221,7 @@ namespace ImageRecognition_Final_Project
                 saveImage = ConvertImageSourceToBitmap(GenerateImage_save1.Source);
         }
 
-        private void InverseDiscreteFourierTransform_Click(object sender, RoutedEventArgs e)
+        private void InverseDiscreteFourierTransform_Button(object sender, RoutedEventArgs e)
         {
             if (oriImage == null)
             {
@@ -303,10 +274,6 @@ namespace ImageRecognition_Final_Project
             }
         }
 
-
-
-
-
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 確保在選擇項目之後才執行
@@ -342,23 +309,49 @@ namespace ImageRecognition_Final_Project
 
             }
         }
-        public Bitmap? ConvertImageSourceToBitmap(ImageSource imageSource)
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            // 創建並顯示設定窗口
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.ShowDialog();
+        }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            // 創建並顯示關於窗口
+            AboutWindow aboutWindow = new AboutWindow();
+            aboutWindow.ShowDialog();
+        }
+
+        private static BitmapImage BitmapToImageSource(Bitmap bitmap)
+        {
+            using MemoryStream memory = new MemoryStream();
+            bitmap.Save(memory, ImageFormat.Bmp);
+            memory.Position = 0;
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.StreamSource = memory;
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.EndInit();
+            return bitmapImage;
+        }
+
+        public static Bitmap? ConvertImageSourceToBitmap(ImageSource imageSource)
         {
             // 創建一個 MemoryStream 來存儲圖像數據
             var bitmapImage = imageSource as BitmapImage;
             if (bitmapImage != null)
             {
                 // 創建一個 Bitmap 來轉換 ImageSource
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    // 將 ImageSource（BitmapImage）保存到 MemoryStream
-                    PngBitmapEncoder encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-                    encoder.Save(stream);
+                using MemoryStream stream = new MemoryStream();
+                // 將 ImageSource（BitmapImage）保存到 MemoryStream
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                encoder.Save(stream);
 
-                    // 將 MemoryStream 轉換為 System.Drawing.Bitmap
-                    return new Bitmap(stream);
-                }
+                // 將 MemoryStream 轉換為 System.Drawing.Bitmap
+                return new Bitmap(stream);
             }
             return null;
         }
