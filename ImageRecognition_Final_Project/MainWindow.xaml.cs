@@ -44,54 +44,40 @@ namespace ImageRecognition_Final_Project
             InitializeComponent();
         }
 
-        private void SelectWatermarkMainImage_Button(object sender, RoutedEventArgs e)
+        private void SelectImage_Button(object sender, RoutedEventArgs e)
         {
+            Button clickedButton = sender as Button;
+            string tag = clickedButton?.Tag.ToString();
+
             OpenFileDialog openFileDialog = new();
             openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
+
             if (openFileDialog.ShowDialog() == true)
             {
-                oriImage = new Bitmap(openFileDialog.FileName);
-                myImageManager.oriImage = oriImage;
-                WatermarkMainImage.Source = BitmapToImageSource(oriImage);
+                Bitmap selectedImage = new Bitmap(openFileDialog.FileName);
+                myImageManager.oriImage = selectedImage;  // 假設你只處理 oriImage 或 watermarkImage 這些
+                ImageSource imageSource = BitmapToImageSource(selectedImage); // 假設你有一個方法來轉換圖片為 ImageSource
+
+                // 根據 Tag 來決定要更新哪個圖片控制項
+                switch (tag)
+                {
+                    case "WatermarkMainImage":
+                        WatermarkMainImage.Source = imageSource;
+                        break;
+                    case "SmonnthingMainImage":
+                        SmonnthingMainImage.Source = imageSource;
+                        break;
+                    case "FourierTransformMainImage":
+                        FourierTransformMainImage.Source = imageSource;
+                        break;
+                    case "WatermarkImage":
+                        WatermarkImage.Source = imageSource;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
-
-        private void SelectSmonnthingMainImage_Button(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new();
-            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                oriImage = new Bitmap(openFileDialog.FileName);
-                myImageManager.oriImage = oriImage;
-                SmonnthingMainImage.Source = BitmapToImageSource(oriImage);
-            }
-        }
-
-        private void SelectFourierTransformMainImage_Button(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new();
-            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                oriImage = new Bitmap(openFileDialog.FileName);
-                myImageManager.oriImage = oriImage;
-                FourierTransformMainImage.Source = BitmapToImageSource(oriImage);
-            }
-        }
-
-        private void SelectWatermark_Button(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new();
-            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                watermarkImage = new Bitmap(openFileDialog.FileName);
-                myImageManager.watermarkImage = watermarkImage;
-                WatermarkImage.Source = BitmapToImageSource(watermarkImage);
-            }
-        }
-
         private void WatermarkGenerateImage_Button(object sender, RoutedEventArgs e)
         {
             if (oriImage == null || watermarkImage == null)
