@@ -92,7 +92,7 @@
                                 <Image x:Name="GaussianSmonnthing"/>
                             </Border>
                             <Grid>
-                                <Slider Height="20" Width="200" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Top" IsSnapToTickEnabled="True" Maximum="10" Value="3" TickFrequency="1" ValueChanged="NormallySmonnthing_Slider_Value"/>
+                                <Slider Height="20" Width="200" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Top" IsSnapToTickEnabled="True" Maximum="10" Value="3" TickFrequency="1" ValueChanged="Smonnthing_Slider_Value"/>
                             </Grid>
                             <Button Content="高斯平滑化" Width="150" Height="30" Click="GaussianSmonnthing_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>

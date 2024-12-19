@@ -27,8 +27,8 @@ namespace ImageRecognition_Final_Project
         private Bitmap? saveImage;
         private MyImageManager myImageManager;
         private SharedViewModel sharedViewModel;
-        private double sliderValue;
-        double value;
+        double WatermarkSliderValue;
+        double SmonnthingSliderValue;
         int current_save_select = 0; //追蹤更新
 
         public MainWindow()
@@ -38,8 +38,8 @@ namespace ImageRecognition_Final_Project
             proImage = null;
             myImageManager = new MyImageManager(); // 初始化 myImageManager
             sharedViewModel = new SharedViewModel(); // 初始化 sharedViewModel
-            sliderValue = 0.5;
-            value = 3.0;
+            WatermarkSliderValue = 0.5;
+            SmonnthingSliderValue = 3.0;
 
             InitializeComponent();
         }
@@ -102,7 +102,7 @@ namespace ImageRecognition_Final_Project
 
             ColorMatrix colorMatrix = new()
             {
-                Matrix33 = (float)sliderValue
+                Matrix33 = (float)WatermarkSliderValue
             };
 
             proImage = myImageManager.AddWatermark(colorMatrix);
@@ -121,7 +121,7 @@ namespace ImageRecognition_Final_Project
 
         private void Watermark_Slider_Value(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            sliderValue = e.NewValue;
+            WatermarkSliderValue = e.NewValue;
 
             if (oriImage != null && watermarkImage != null)
             {
@@ -153,7 +153,7 @@ namespace ImageRecognition_Final_Project
 
             ColorMatrix colorMatrix = new()
             {
-                Matrix33 = (float)sliderValue
+                Matrix33 = (float)SmonnthingSliderValue
             };
             myImageManager.Smonnthing1();
 
@@ -174,7 +174,7 @@ namespace ImageRecognition_Final_Project
                 HandyControl.Controls.MessageBox.Show("請先選擇主圖片！");
                 return;
             }
-            myImageManager.Smonnthing2((int)value);
+            myImageManager.Smonnthing2((int)SmonnthingSliderValue);
 
             // 顯示合成後的圖片
             NormallySmonnthing.Source = BitmapToImageSource(myImageManager.proImage);
@@ -186,9 +186,9 @@ namespace ImageRecognition_Final_Project
                 saveImage = ConvertImageSourceToBitmap(GenerateImage_save1.Source);
         }
 
-        private void NormallySmonnthing_Slider_Value(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void Smonnthing_Slider_Value(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            value = e.NewValue;
+            SmonnthingSliderValue = e.NewValue;
             //if (oriImage != null)
             //{
             //    myImageManager.Smonnthing2((int)value);
