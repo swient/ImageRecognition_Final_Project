@@ -73,6 +73,9 @@ namespace ImageRecognition_Final_Project
                     case "WatermarkImage":
                         WatermarkImage.Source = imageSource;
                         break;
+                    case "RemoveMarkMainImage":
+                        RemoveMarkMainImage.Source = imageSource;
+                        break;
                     default:
                         break;
                 }
