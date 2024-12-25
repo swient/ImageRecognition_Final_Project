@@ -1,21 +1,19 @@
-﻿using ImageRecognition_Final_Project.Program;
+﻿using HandyControl.Controls;
+using ImageRecognition_Final_Project.Program;
 using ImageRecognition_Final_Project.SharedView;
 using Microsoft.Win32;
-using System;
+
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Text;
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
+
 
 namespace ImageRecognition_Final_Project
 {
@@ -30,6 +28,10 @@ namespace ImageRecognition_Final_Project
         double WatermarkSliderValue;
         double SmonnthingSliderValue;
         int current_save_select = 0; //追蹤更新
+        //圖片裁切
+        private System.Windows.Point startPoint;
+        private System.Windows.Point endPoint;
+        private bool isSelecting = false;
 
         public MainWindow()
         {
@@ -55,7 +57,7 @@ namespace ImageRecognition_Final_Project
             if (openFileDialog.ShowDialog() == true)
             {
                 Bitmap selectedImage = new Bitmap(openFileDialog.FileName);
-                myImageManager.oriImage = selectedImage;  // 假設你只處理 oriImage 或 watermarkImage 這些
+                myImageManager.oriImage = selectedImage;  
                 ImageSource imageSource = BitmapToImageSource(selectedImage); // 假設你有一個方法來轉換圖片為 ImageSource
 
                 // 根據 Tag 來決定要更新哪個圖片控制項
@@ -73,7 +75,10 @@ namespace ImageRecognition_Final_Project
                     case "WatermarkImage":
                         WatermarkImage.Source = imageSource;
                         break;
+                    //removewatermark需重新調整大小
                     case "RemoveMarkMainImage":
+                        selectedImage = myImageManager.ResizeImage(selectedImage, 490, selectedImage.Height * 490 / selectedImage.Width);
+                        imageSource = BitmapToImageSource(selectedImage); 
                         RemoveMarkMainImage.Source = imageSource;
                         break;
                     default:
@@ -266,7 +271,7 @@ namespace ImageRecognition_Final_Project
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 確保在選擇項目之後才執行
-            if (e.Source is TabControl tabControl && tabControl.SelectedItem is TabItem selectedTab)
+            if (e.Source is System.Windows.Controls.TabControl tabControl && tabControl.SelectedItem is System.Windows.Controls.TabItem selectedTab)
             {
                 current_save_select = tabControl.SelectedIndex;
                 switch (tabControl.SelectedIndex)
@@ -343,6 +348,94 @@ namespace ImageRecognition_Final_Project
                 return new Bitmap(stream);
             }
             return null;
+        }
+        private void ImageViewer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //如果沒有圖像
+            if (RemoveMarkMainImage.Source == null) return;
+                //獲取起始座標
+                startPoint = e.GetPosition(RemoveMarkMainImage);
+                //繪製矩形
+                SelectionRect.Visibility = Visibility.Visible;
+                //設置矩形左上角座標
+                Canvas.SetLeft(SelectionRect, startPoint.X);
+                Canvas.SetTop(SelectionRect, startPoint.Y);
+                //初始化矩形
+                SelectionRect.Width = 0;
+                SelectionRect.Height = 0;
+                //標記正在剪裁
+                isSelecting = true;
+
+                // 捕捉滑鼠
+                RemoveMarkMainImage.CaptureMouse();   
+
+        }
+
+        private void ImageViewer_MouseMove(object sender, MouseEventArgs e)
+        {
+            //如果沒有圖象or沒有剪裁動作
+            if (!isSelecting || RemoveMarkMainImage.Source == null) return;
+            //獲取滑鼠座標
+            endPoint = e.GetPosition(RemoveMarkMainImage);
+            //獲取左上角頂點座標
+            double x = Math.Min(startPoint.X, endPoint.X);
+            double y = Math.Min(startPoint.Y, endPoint.Y);
+            //獲取矩形長寬
+            double width = Math.Abs(startPoint.X - endPoint.X);
+            double height = Math.Abs(startPoint.Y - endPoint.Y);
+            //設置矩形
+            Canvas.SetLeft(SelectionRect, x);
+            Canvas.SetTop(SelectionRect, y);
+            SelectionRect.Width = width;
+            SelectionRect.Height = height;
+        }
+        private void ImageViewer_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!isSelecting || RemoveMarkMainImage.Source == null) return;
+
+            isSelecting = false;
+            SelectionRect.Visibility = Visibility.Collapsed;
+
+            endPoint = e.GetPosition(RemoveMarkMainImage);
+
+            var bitmapSource = RemoveMarkMainImage.Source as BitmapSource;
+            if (bitmapSource != null)
+            {
+                // 限制滑鼠座標
+                startPoint.X = Math.Max(0, Math.Min(startPoint.X, RemoveMarkMainImage.ActualWidth));
+                startPoint.Y = Math.Max(0, Math.Min(startPoint.Y, RemoveMarkMainImage.ActualHeight));
+                endPoint.X = Math.Max(0, Math.Min(endPoint.X, RemoveMarkMainImage.ActualWidth));
+                endPoint.Y = Math.Max(0, Math.Min(endPoint.Y, RemoveMarkMainImage.ActualHeight));
+
+                // 計算比例
+                double xRatio = bitmapSource.PixelWidth / RemoveMarkMainImage.ActualWidth;
+                double yRatio = bitmapSource.PixelHeight / RemoveMarkMainImage.ActualHeight;
+
+                // 計算裁剪範圍
+                Int32Rect cropRect = new Int32Rect(
+                    Math.Max(0, (int)(Math.Min(startPoint.X, endPoint.X) * xRatio)),
+                    Math.Max(0, (int)(Math.Min(startPoint.Y, endPoint.Y) * yRatio)),
+                    Math.Max(1, (int)(Math.Abs(startPoint.X - endPoint.X) * xRatio)),
+                    Math.Max(1, (int)(Math.Abs(startPoint.Y - endPoint.Y) * yRatio))
+                );
+
+                // 確保裁剪範圍不超出圖像邊界
+                if (cropRect.X + cropRect.Width > bitmapSource.PixelWidth)
+                    cropRect.Width = bitmapSource.PixelWidth - cropRect.X;
+                if (cropRect.Y + cropRect.Height > bitmapSource.PixelHeight)
+                    cropRect.Height = bitmapSource.PixelHeight - cropRect.Y;
+
+                // 執行裁剪
+                try
+                {
+                    CroppedBitmap croppedBitmap = new CroppedBitmap(bitmapSource, cropRect);
+                    RemoveWatermarkImage.Source = croppedBitmap;
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show($"Error cropping image: {ex.Message}");
+                }
+            }
         }
     }
 }

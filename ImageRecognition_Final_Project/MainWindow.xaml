@@ -11,7 +11,13 @@
         <TabControl Style="{StaticResource TabControlInLine}">
             <TabItem Header="浮水印">
                 <Grid Background="WhiteSmoke">
-                    <hc:UniformSpacingPanel Margin="80" Spacing="80" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="655*"/>
+                        <ColumnDefinition Width="249*"/>
+                        <ColumnDefinition Width="406*"/>
+                        <ColumnDefinition Width="289*"/>
+                    </Grid.ColumnDefinitions>
+                    <hc:UniformSpacingPanel Margin="96,0,0,0" Spacing="80" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="4">
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                 <Image x:Name="WatermarkMainImage"/>
@@ -72,7 +78,7 @@
                             </hc:UniformSpacingPanel>
                         </Border>
                     </hc:UniformSpacingPanel>
-                    <Image HorizontalAlignment="Left" Height="62" Margin="810,609,0,0" VerticalAlignment="Top" Width="115"/>
+                    <Image HorizontalAlignment="Left" Height="62" Margin="156,609,0,0" VerticalAlignment="Top" Width="115" Grid.ColumnSpan="2" Grid.Column="1"/>
                 </Grid>
             </TabItem>
             <TabItem Header="平滑化">
@@ -204,14 +210,26 @@
                         </Border>
                     </hc:UniformSpacingPanel>
                 </Grid>
-            
+
             </TabItem>
             <TabItem Header="去除浮水印">
                 <Grid Background="WhiteSmoke">
                     <hc:UniformSpacingPanel Margin="80" Spacing="80" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
-                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                <Image x:Name="RemoveMarkMainImage"/>
+                            <Border BorderBrush="Black" Width="400" Height="400" BorderThickness="1" Background="White" ClipToBounds="True">
+                                <Canvas>
+                                    <Image x:Name="RemoveMarkMainImage" 
+                                       MouseLeftButtonUp="ImageViewer_MouseLeftButtonUp" 
+                                       MouseLeftButtonDown="ImageViewer_MouseLeftButtonDown" 
+                                       MouseMove="ImageViewer_MouseMove" 
+                                       IsHitTestVisible="True" 
+                                       Stretch="UniformToFill" />
+                                    <Rectangle Name="SelectionRect" 
+                                       Fill="Transparent" 
+                                       Stroke="Blue" 
+                                       StrokeThickness="2" 
+                                       Visibility="Collapsed" />
+                                </Canvas>
                             </Border>
                             <Grid Visibility="Hidden">
                                 <Button Width="0" Height="20"/>
@@ -227,7 +245,7 @@
                             </Grid>
                         </hc:UniformSpacingPanel>
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
-                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                            <Border BorderBrush="Black" Width="400" Height="400" BorderThickness="1" Background="White">
                                 <Image x:Name="RemoveWarkmarkResultImage"/>
                             </Border>
                             <Grid Visibility="Hidden">
