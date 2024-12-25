@@ -57,28 +57,38 @@ namespace ImageRecognition_Final_Project
             if (openFileDialog.ShowDialog() == true)
             {
                 Bitmap selectedImage = new Bitmap(openFileDialog.FileName);
-                myImageManager.oriImage = selectedImage;  
                 ImageSource imageSource = BitmapToImageSource(selectedImage); // 假設你有一個方法來轉換圖片為 ImageSource
 
-                // 根據 Tag 來決定要更新哪個圖片控制項
+                // 根據 Tag 來決定要更新哪個圖片控制項與資料
                 switch (tag)
                 {
                     case "WatermarkMainImage":
+                        oriImage = selectedImage;
+                        myImageManager.oriImage = selectedImage; // 設定為主影像
                         WatermarkMainImage.Source = imageSource;
                         break;
+
                     case "SmonnthingMainImage":
+                        oriImage = selectedImage;
+                        myImageManager.oriImage = selectedImage; // 設定為主影像
                         SmonnthingMainImage.Source = imageSource;
                         break;
+
                     case "FourierTransformMainImage":
+                        oriImage = selectedImage;
+                        myImageManager.oriImage = selectedImage; // 設定為主影像
                         FourierTransformMainImage.Source = imageSource;
                         break;
+
                     case "WatermarkImage":
+                        watermarkImage = selectedImage;
+                        myImageManager.watermarkImage = selectedImage; // 設定為浮水印影像
                         WatermarkImage.Source = imageSource;
                         break;
                     //removewatermark需重新調整大小
                     case "RemoveMarkMainImage":
                         selectedImage = myImageManager.ResizeImage(selectedImage, 490, selectedImage.Height * 490 / selectedImage.Width);
-                        imageSource = BitmapToImageSource(selectedImage); 
+                        imageSource = BitmapToImageSource(selectedImage);
                         RemoveMarkMainImage.Source = imageSource;
                         break;
                     default:
@@ -86,6 +96,7 @@ namespace ImageRecognition_Final_Project
                 }
             }
         }
+
         private void WatermarkGenerateImage_Button(object sender, RoutedEventArgs e)
         {
             if (oriImage == null || watermarkImage == null)
