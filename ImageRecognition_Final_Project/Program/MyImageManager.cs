@@ -55,7 +55,37 @@ namespace ImageRecognition_Final_Project.Program
             return proImage;
         }
 
-        public void Smonnthing1()
+        public Bitmap AddTextWatermark(string watermarkText, ColorMatrix colorMatrix, int angle, int fontSize)
+        {
+            Bitmap bitmap = new Bitmap(oriImage.Width, oriImage.Height, PixelFormat.Format32bppArgb);
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            {
+                graphics.DrawImage(oriImage, 0, 0, oriImage.Width, oriImage.Height);
+                Font font = new Font("Microsoft JhengHei", fontSize, FontStyle.Bold, GraphicsUnit.Pixel);
+                ImageAttributes imageAttributes = new ImageAttributes();
+                imageAttributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+                SizeF textSize = graphics.MeasureString(watermarkText, font);
+                graphics.TranslateTransform(oriImage.Width / 2, oriImage.Height / 2);
+                graphics.RotateTransform(angle); // 旋轉角度
+                graphics.TranslateTransform(-oriImage.Width / 2, -oriImage.Height / 2);
+
+                for (int y = -oriImage.Height; y < oriImage.Height * 2; y += (int)textSize.Height + 10)
+                {
+                    for (int x = -oriImage.Width; x < oriImage.Width * 2; x += (int)textSize.Width + 10)
+                    {
+                        // Create a brush with the specified color matrix
+                        using (Brush brush = new SolidBrush(Color.FromArgb((int)(colorMatrix.Matrix33 * 255), Color.White)))
+                        {
+                            graphics.DrawString(watermarkText, font, brush, new PointF(x, y));
+                        }
+                    }
+                }
+            }
+            return bitmap;
+        }
+
+        public void GaussianSmonnthing()
         {
             if (oriImage == null)
             {
@@ -83,7 +113,7 @@ namespace ImageRecognition_Final_Project.Program
             }
         }
 
-        public void Smonnthing2(int filter)
+        public void NormallySmonnthing(int filter)
         {
             if (oriImage == null)
             {
