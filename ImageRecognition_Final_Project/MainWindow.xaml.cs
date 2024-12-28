@@ -83,10 +83,9 @@ namespace ImageRecognition_Final_Project
                         myImageManager.oriImage = selectedImage; // 設定為主影像
                         TextWatermarkMainImage.Source = imageSource;
                         break;
-                    //removewatermark需重新調整大小
                     case "RemoveMarkMainImage":
-                        selectedImage = myImageManager.ResizeImage(selectedImage, 490, selectedImage.Height * 490 / selectedImage.Width);
-                        imageSource = BitmapToImageSource(selectedImage);
+                        oriImage = selectedImage;
+                        myImageManager.oriImage = selectedImage;
                         RemoveMarkMainImage.Source = imageSource;
                         break;
                     case "SmonnthingMainImage":
@@ -128,6 +127,7 @@ namespace ImageRecognition_Final_Project
                             TextWatermarkGenerateImage_save2.Source = BitmapToImageSource(proImage);
                             TextWatermarkGenerateImage_save3.Source = BitmapToImageSource(proImage);
                             TextWatermarkGenerateImage_save4.Source = BitmapToImageSource(proImage);
+                            TextWatermarkGenerateImage_save5.Source = BitmapToImageSource(proImage);
                         }
                         break;
                     case "TextWatermark_Angle":
@@ -157,6 +157,7 @@ namespace ImageRecognition_Final_Project
                             WatermarkGenerateImage_save2.Source = BitmapToImageSource(proImage);
                             WatermarkGenerateImage_save3.Source = BitmapToImageSource(proImage);
                             WatermarkGenerateImage_save4.Source = BitmapToImageSource(proImage);
+                            WatermarkGenerateImage_save5.Source = BitmapToImageSource(proImage);
                         }
                         break;
                     default:
@@ -183,11 +184,12 @@ namespace ImageRecognition_Final_Project
             proImage = myImageManager.AddWatermark(colorMatrix);
 
             // 顯示合成後的圖片
-            WatermarkGenerateImage.Source = BitmapToImageSource(myImageManager.proImage);
+            WatermarkGenerateImage.Source = BitmapToImageSource(proImage);
             WatermarkGenerateImage_save1.Source = BitmapToImageSource(proImage);
             WatermarkGenerateImage_save2.Source = BitmapToImageSource(proImage);
             WatermarkGenerateImage_save3.Source = BitmapToImageSource(proImage);
             WatermarkGenerateImage_save4.Source = BitmapToImageSource(proImage);
+            WatermarkGenerateImage_save5.Source = BitmapToImageSource(proImage);
             HandyControl.Controls.Growl.Success("圖片浮水印生成成功！");
 
             //防止未選擇圖片儲存bug
@@ -218,11 +220,36 @@ namespace ImageRecognition_Final_Project
             TextWatermarkGenerateImage_save2.Source = BitmapToImageSource(proImage);
             TextWatermarkGenerateImage_save3.Source = BitmapToImageSource(proImage);
             TextWatermarkGenerateImage_save4.Source = BitmapToImageSource(proImage);
+            TextWatermarkGenerateImage_save5.Source = BitmapToImageSource(proImage);
             HandyControl.Controls.Growl.Success("文字浮水印生成成功！");
 
             //防止未選擇圖片儲存bug
             if (current_save_select == 1)
                 saveImage = ConvertImageSourceToBitmap(TextWatermarkGenerateImage.Source);
+        }
+
+        private void RemoveWarkmarkResultImage_Button(object sender, RoutedEventArgs e)
+        {
+            if (oriImage == null)
+            {
+                HandyControl.Controls.MessageBox.Show("請先選擇主圖片和選取浮水印範圍！");
+                return;
+            }
+
+            proImage = oriImage;
+
+            // 顯示合成後的圖片
+            RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
+            RemoveWarkmarkResultImage_save1.Source = BitmapToImageSource(proImage);
+            RemoveWarkmarkResultImage_save2.Source = BitmapToImageSource(proImage);
+            RemoveWarkmarkResultImage_save3.Source = BitmapToImageSource(proImage);
+            RemoveWarkmarkResultImage_save4.Source = BitmapToImageSource(proImage);
+            RemoveWarkmarkResultImage_save5.Source = BitmapToImageSource(proImage);
+            HandyControl.Controls.Growl.Success("浮水印移除成功！");
+
+            //防止未選擇圖片儲存bug
+            if (current_save_select == 2)
+                saveImage = ConvertImageSourceToBitmap(RemoveWarkmarkResultImage.Source);
         }
 
         private void GaussianSmonnthing_Button(object sender, RoutedEventArgs e)
@@ -245,8 +272,9 @@ namespace ImageRecognition_Final_Project
             GaussianSmonnthing_save2.Source = BitmapToImageSource(myImageManager.proImage);
             GaussianSmonnthing_save3.Source = BitmapToImageSource(myImageManager.proImage);
             GaussianSmonnthing_save4.Source = BitmapToImageSource(myImageManager.proImage);
+            GaussianSmonnthing_save5.Source = BitmapToImageSource(myImageManager.proImage);
             HandyControl.Controls.Growl.Success("高斯模糊成功！");
-            if (current_save_select == 2)
+            if (current_save_select == 3)
                 saveImage = ConvertImageSourceToBitmap(WatermarkGenerateImage.Source);
         }
 
@@ -265,50 +293,55 @@ namespace ImageRecognition_Final_Project
             NormallySmonnthing_save2.Source = BitmapToImageSource(myImageManager.proImage);
             NormallySmonnthing_save3.Source = BitmapToImageSource(myImageManager.proImage);
             NormallySmonnthing_save4.Source = BitmapToImageSource(myImageManager.proImage);
+            NormallySmonnthing_save5.Source = BitmapToImageSource(myImageManager.proImage);
             HandyControl.Controls.Growl.Success("一般平滑化成功！");
-            if (current_save_select == 3)
+            if (current_save_select == 4)
                 saveImage = ConvertImageSourceToBitmap(WatermarkGenerateImage.Source);
         }
 
-        private void DiscreteFourierTransform_Button(object sender, RoutedEventArgs e)
+        private async void DiscreteFourierTransform_Button(object sender, RoutedEventArgs e)
         {
             if (oriImage == null)
             {
                 HandyControl.Controls.MessageBox.Show("請先選擇主圖片！");
                 return;
             }
-            myImageManager.DiscreteFourierTransform();
-
+            LoadingDiscreteFourier.Visibility = Visibility.Visible;
+            await Task.Run(() => myImageManager.DiscreteFourierTransform());
+            LoadingDiscreteFourier.Visibility = Visibility.Hidden;
             // 顯示合成後的圖片
             DiscreteFourierTransform.Source = BitmapToImageSource(myImageManager.proImage);
             DiscreteFourierTransform_save1.Source = BitmapToImageSource(myImageManager.proImage);
             DiscreteFourierTransform_save2.Source = BitmapToImageSource(myImageManager.proImage);
             DiscreteFourierTransform_save3.Source = BitmapToImageSource(myImageManager.proImage);
             DiscreteFourierTransform_save4.Source = BitmapToImageSource(myImageManager.proImage);
+            DiscreteFourierTransform_save5.Source = BitmapToImageSource(myImageManager.proImage);
             HandyControl.Controls.Growl.Success("傅立葉變換成功！");
 
-            if (current_save_select == 4)
+            if (current_save_select == 5)
                 saveImage = ConvertImageSourceToBitmap(WatermarkGenerateImage.Source);
         }
 
-        private void InverseDiscreteFourierTransform_Button(object sender, RoutedEventArgs e)
+        private async void InverseDiscreteFourierTransform_Button(object sender, RoutedEventArgs e)
         {
             if (oriImage == null)
             {
                 HandyControl.Controls.MessageBox.Show("請先選擇主圖片！");
                 return;
             }
-            myImageManager.InverseDiscreteFourierTransform();
-
+            LoadingInverseDiscreteFourier.Visibility = Visibility.Visible;
+            await Task.Run(() => myImageManager.InverseDiscreteFourierTransform());
+            LoadingInverseDiscreteFourier.Visibility = Visibility.Hidden;
             // 顯示合成後的圖片
             InverseDiscreteFourierTransform.Source = BitmapToImageSource(myImageManager.proImage);
             InverseDiscreteFourierTransform_save1.Source = BitmapToImageSource(myImageManager.proImage);
             InverseDiscreteFourierTransform_save2.Source = BitmapToImageSource(myImageManager.proImage);
             InverseDiscreteFourierTransform_save3.Source = BitmapToImageSource(myImageManager.proImage);
             InverseDiscreteFourierTransform_save4.Source = BitmapToImageSource(myImageManager.proImage);
+            InverseDiscreteFourierTransform_save5.Source = BitmapToImageSource(myImageManager.proImage);
             HandyControl.Controls.Growl.Success("逆傅立葉變換成功！");
 
-            if (current_save_select == 5)
+            if (current_save_select == 6)
                 saveImage = ConvertImageSourceToBitmap(WatermarkGenerateImage.Source);
         }
 
@@ -361,20 +394,24 @@ namespace ImageRecognition_Final_Project
                     case 1:
                         saveImage = ConvertImageSourceToBitmap(TextWatermarkGenerateImage.Source);
                         break;
-                    //case "Gaussian_smoothing":
+                    //case "RemoveWarkmark":
                     case 2:
+                        saveImage = ConvertImageSourceToBitmap(RemoveWarkmarkResultImage.Source);
+                        break;
+                    //case "Gaussian_smoothing":
+                    case 3:
                         saveImage = ConvertImageSourceToBitmap(GaussianSmonnthing.Source);
                         break;
                     //case "general_smoothing":
-                    case 3:
+                    case 4:
                         saveImage = ConvertImageSourceToBitmap(NormallySmonnthing.Source);
                         break;
                     //case "Fourier_transform":
-                    case 4:
+                    case 5:
                         saveImage = ConvertImageSourceToBitmap(DiscreteFourierTransform.Source);
                         break;
                     //case "Inverse_Fourier_Transform":
-                    case 5:
+                    case 6:
                         saveImage = ConvertImageSourceToBitmap(InverseDiscreteFourierTransform.Source);
                         break;
                     default:
@@ -429,7 +466,8 @@ namespace ImageRecognition_Final_Project
             }
             return null;
         }
-        private void ImageViewer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+
+        private void RemoveMarkMainImage_MouseLeftDown(object sender, MouseButtonEventArgs e)
         {
             //如果沒有圖像
             if (RemoveMarkMainImage.Source == null) return;
@@ -450,7 +488,7 @@ namespace ImageRecognition_Final_Project
                 RemoveMarkMainImage.CaptureMouse();
         }
 
-        private void ImageViewer_MouseMove(object sender, MouseEventArgs e)
+        private void RemoveMarkMainImage_MouseMove(object sender, MouseEventArgs e)
         {
             //如果沒有圖象or沒有剪裁動作
             if (!isSelecting || RemoveMarkMainImage.Source == null) return;
@@ -462,13 +500,18 @@ namespace ImageRecognition_Final_Project
             //獲取矩形長寬
             double width = Math.Abs(startPoint.X - endPoint.X);
             double height = Math.Abs(startPoint.Y - endPoint.Y);
+            //對齊Canvas和Image座標
+            var imagePosition = RemoveMarkMainImage.TransformToVisual((Visual)RemoveMarkMainImage.Parent).Transform(new System.Windows.Point(0, 0));
+            x += imagePosition.X;
+            y += imagePosition.Y;
             //設置矩形
             Canvas.SetLeft(SelectionRect, x);
             Canvas.SetTop(SelectionRect, y);
             SelectionRect.Width = width;
             SelectionRect.Height = height;
         }
-        private void ImageViewer_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+
+        private void RemoveMarkMainImage_MouseLeftUp(object sender, MouseButtonEventArgs e)
         {
             if (!isSelecting || RemoveMarkMainImage.Source == null) return;
 

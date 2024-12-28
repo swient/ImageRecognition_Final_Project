@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:ImageRecognition_Final_Project"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
-        Title="影像辨識-期末專題" MinHeight="800" MinWidth="1600" Icon="/Image/ImageRecognition_icon.ico">
+        Title="影像辨識-期末專題" MinHeight="800" MinWidth="1500" Icon="/Image/ImageRecognition_icon.ico">
     <hc:TransitioningContentControl>
         <TabControl Style="{StaticResource TabControlInLine}">
             <TabItem Header="圖片浮水印">
                 <Grid Background="WhiteSmoke">
-                    <hc:UniformSpacingPanel Margin="96,0,0,0" Spacing="80" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="4">
+                    <hc:UniformSpacingPanel Margin="80" Spacing="150" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                 <Image x:Name="WatermarkMainImage"/>
@@ -39,50 +39,58 @@
                             </Grid>
                             <Button Content="生成圖片" Width="150" Height="30" Click="WatermarkGenerateImage_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
-                        <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
-                            <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
-                                <Button Content="儲存圖片" Width="100" Height="30" Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
-                                <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged"  Style="{StaticResource TabControlSliding}">
-                                    <TabItem Header="圖片浮水印" Name="TextWatermark">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="WatermarkGenerateImage_save1"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="文字浮水印" Name="TextTextWatermark">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="TextWatermarkGenerateImage_save1"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="高斯平滑化">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="GaussianSmonnthing_save1"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="一般平滑化">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="NormallySmonnthing_save1"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="傅立葉變換">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="DiscreteFourierTransform_save1"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="逆傅立葉變換">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="InverseDiscreteFourierTransform_save1"/>
-                                        </Border>
-                                    </TabItem>
-                                </TabControl>
-                            </hc:UniformSpacingPanel>
-                        </Border>
                     </hc:UniformSpacingPanel>
-                    <Image HorizontalAlignment="Left" Height="62" Margin="156,609,0,0" VerticalAlignment="Top" Width="115" Grid.ColumnSpan="2" Grid.Column="1"/>
+                    <Canvas>
+                        <Expander Header="儲存圖片" Canvas.Top="100" Canvas.Right="30">
+                            <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
+                                <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
+                                    <Button Content="儲存圖片" Width="100" Height="30" Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
+                                    <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged"  Style="{StaticResource TabControlSliding}">
+                                        <TabItem Header="圖片浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="WatermarkGenerateImage_save1"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="文字浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="TextWatermarkGenerateImage_save1"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="移除浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="RemoveWarkmarkResultImage_save1"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="高斯平滑化">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="GaussianSmonnthing_save1"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="一般平滑化">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="NormallySmonnthing_save1"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="傅立葉變換">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="DiscreteFourierTransform_save1"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="逆傅立葉變換">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="InverseDiscreteFourierTransform_save1"/>
+                                            </Border>
+                                        </TabItem>
+                                    </TabControl>
+                                </hc:UniformSpacingPanel>
+                            </Border>
+                        </Expander>
+                    </Canvas>
                 </Grid>
             </TabItem>
             <TabItem Header="文字浮水印">
                 <Grid Background="WhiteSmoke">
-                    <hc:UniformSpacingPanel Margin="96,0,0,0" Spacing="80" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="4">
+                    <hc:UniformSpacingPanel Margin="80" Spacing="177" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                 <Image x:Name="TextWatermarkMainImage"/>
@@ -122,45 +130,53 @@
                             </Grid>
                             <Button Content="生成圖片" Width="150" Height="30" Click="TextWatermarkGenerateImage_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
-                        <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
-                            <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
-                                <Button Content="儲存圖片" Width="100" Height="30" Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
-                                <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged"  Style="{StaticResource TabControlSliding}">
-                                    <TabItem Header="圖片浮水印">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="WatermarkGenerateImage_save2"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="文字浮水印">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="TextWatermarkGenerateImage_save2"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="高斯平滑化">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="GaussianSmonnthing_save2"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="一般平滑化">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="NormallySmonnthing_save2"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="傅立葉變換">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="DiscreteFourierTransform_save2"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="逆傅立葉變換">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="InverseDiscreteFourierTransform_save2"/>
-                                        </Border>
-                                    </TabItem>
-                                </TabControl>
-                            </hc:UniformSpacingPanel>
-                        </Border>
                     </hc:UniformSpacingPanel>
-                    <Image HorizontalAlignment="Left" Height="62" Margin="156,609,0,0" VerticalAlignment="Top" Width="115" Grid.ColumnSpan="2" Grid.Column="1"/>
+                    <Canvas>
+                        <Expander Header="儲存圖片" Canvas.Top="100" Canvas.Right="30">
+                            <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
+                                <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
+                                    <Button Content="儲存圖片" Width="100" Height="30" Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
+                                    <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged"  Style="{StaticResource TabControlSliding}">
+                                        <TabItem Header="圖片浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="WatermarkGenerateImage_save2"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="文字浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="TextWatermarkGenerateImage_save2"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="移除浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="RemoveWarkmarkResultImage_save2"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="高斯平滑化">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="GaussianSmonnthing_save2"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="一般平滑化">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="NormallySmonnthing_save2"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="傅立葉變換">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="DiscreteFourierTransform_save2"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="逆傅立葉變換">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="InverseDiscreteFourierTransform_save2"/>
+                                            </Border>
+                                        </TabItem>
+                                    </TabControl>
+                                </hc:UniformSpacingPanel>
+                            </Border>
+                        </Expander>
+                    </Canvas>
                 </Grid>
             </TabItem>
             <TabItem Header="去除浮水印">
@@ -169,12 +185,7 @@
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="400" Height="400" BorderThickness="1" Background="White" ClipToBounds="True">
                                 <Canvas>
-                                    <Image x:Name="RemoveMarkMainImage" 
-                                        MouseLeftButtonUp="ImageViewer_MouseLeftButtonUp" 
-                                        MouseLeftButtonDown="ImageViewer_MouseLeftButtonDown" 
-                                        MouseMove="ImageViewer_MouseMove" 
-                                        IsHitTestVisible="True" 
-                                        Stretch="UniformToFill" />
+                                    <Image x:Name="RemoveMarkMainImage" Width="400" Height="400" MouseLeftButtonDown="RemoveMarkMainImage_MouseLeftDown" MouseMove="RemoveMarkMainImage_MouseMove" MouseLeftButtonUp="RemoveMarkMainImage_MouseLeftUp"/>
                                     <Rectangle Name="SelectionRect" 
                                        Fill="Transparent" 
                                        Stroke="Blue" 
@@ -188,12 +199,12 @@
                             <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectMainImage_Button" Tag="RemoveMarkMainImage" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
+                            <Grid Visibility="Hidden">
+                                <Button Width="0" Height="50"/>
+                            </Grid>
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                 <Image x:Name="RemoveWatermarkImage"/>
                             </Border>
-                            <Grid Visibility="Hidden">
-                                <Button Width="0" Height="20"/>
-                            </Grid>
                         </hc:UniformSpacingPanel>
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="400" Height="400" BorderThickness="1" Background="White">
@@ -202,14 +213,60 @@
                             <Grid Visibility="Hidden">
                                 <Button Width="0" Height="20"/>
                             </Grid>
-                            <Button Content="儲存圖片" Width="150" Height="30" Click="InverseDiscreteFourierTransform_Button" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="儲存圖片" Width="150" Height="30" Click="RemoveWarkmarkResultImage_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                     </hc:UniformSpacingPanel>
+                    <Canvas>
+                        <Expander Header="儲存圖片" Canvas.Top="100" Canvas.Right="30">
+                            <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
+                                <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
+                                    <Button Content="儲存圖片" Width="100" Height="30" Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
+                                    <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged"  Style="{StaticResource TabControlSliding}">
+                                        <TabItem Header="圖片浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="WatermarkGenerateImage_save3"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="文字浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="TextWatermarkGenerateImage_save3"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="移除浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="RemoveWarkmarkResultImage_save3"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="高斯平滑化">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="GaussianSmonnthing_save3"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="一般平滑化">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="NormallySmonnthing_save3"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="傅立葉變換">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="DiscreteFourierTransform_save3"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="逆傅立葉變換">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="InverseDiscreteFourierTransform_save3"/>
+                                            </Border>
+                                        </TabItem>
+                                    </TabControl>
+                                </hc:UniformSpacingPanel>
+                            </Border>
+                        </Expander>
+                    </Canvas>
                 </Grid>
             </TabItem>
             <TabItem Header="平滑化">
                 <Grid Background="WhiteSmoke">
-                    <hc:UniformSpacingPanel Margin="80" Spacing="80" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <hc:UniformSpacingPanel Margin="80" Spacing="150" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                 <Image x:Name="SmonnthingMainImage"/>
@@ -237,49 +294,58 @@
                             </Grid>
                             <Button Content="一般平滑" Width="150" Height="30" Click="NormallySmonnthing_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
-                        <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
-                            <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
-                                <Button Content="儲存圖片" Width="100" Height="30" Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
-                                <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged" Style="{StaticResource TabControlSliding}">
-                                    <TabItem Header="圖片浮水印">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="WatermarkGenerateImage_save3"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="文字浮水印">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="TextWatermarkGenerateImage_save3"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="高斯平滑化">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="GaussianSmonnthing_save3"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="一般平滑化">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="NormallySmonnthing_save3"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="傅立葉變換">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="DiscreteFourierTransform_save3"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="逆傅立葉變換">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="InverseDiscreteFourierTransform_save3"/>
-                                        </Border>
-                                    </TabItem>
-                                </TabControl>
-                            </hc:UniformSpacingPanel>
-                        </Border>
                     </hc:UniformSpacingPanel>
+                    <Canvas>
+                        <Expander Header="儲存圖片" Canvas.Top="100" Canvas.Right="30">
+                            <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
+                                <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
+                                    <Button Content="儲存圖片" Width="100" Height="30" Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
+                                    <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged" Style="{StaticResource TabControlSliding}">
+                                        <TabItem Header="圖片浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="WatermarkGenerateImage_save4"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="文字浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="TextWatermarkGenerateImage_save4"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="移除浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="RemoveWarkmarkResultImage_save4"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="高斯平滑化">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="GaussianSmonnthing_save4"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="一般平滑化">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="NormallySmonnthing_save4"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="傅立葉變換">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="DiscreteFourierTransform_save4"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="逆傅立葉變換">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="InverseDiscreteFourierTransform_save4"/>
+                                            </Border>
+                                        </TabItem>
+                                    </TabControl>
+                                </hc:UniformSpacingPanel>
+                            </Border>
+                        </Expander>
+                    </Canvas>
                 </Grid>
             </TabItem>
             <TabItem Header="傅立葉變換">
                 <Grid Background="WhiteSmoke">
-                    <hc:UniformSpacingPanel Margin="80" Spacing="80" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <hc:UniformSpacingPanel Margin="80" Spacing="150" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                 <Image x:Name="FourierTransformMainImage"/>
@@ -293,8 +359,8 @@
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                 <Image x:Name="DiscreteFourierTransform"/>
                             </Border>
-                            <Grid Visibility="Hidden">
-                                <Button Width="0" Height="20"/>
+                            <Grid x:Name="LoadingDiscreteFourier" Visibility="Hidden">
+                                <hc:LoadingLine Height="20"/>
                             </Grid>
                             <Button Content="傅立葉變換" Width="150" Height="30" Click="DiscreteFourierTransform_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
@@ -302,49 +368,58 @@
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                 <Image x:Name="InverseDiscreteFourierTransform"/>
                             </Border>
-                            <Grid Visibility="Hidden">
-                                <Button Width="0" Height="20"/>
+                            <Grid x:Name="LoadingInverseDiscreteFourier" Visibility="Hidden">
+                                <hc:LoadingLine Height="20"/>
                             </Grid>
                             <Button Content="逆傅立葉變換" Width="150" Height="30" Click="InverseDiscreteFourierTransform_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
-                        <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20">
-                            <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
-                                <Button Content="儲存圖片" Width="100" Height="30"  Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
-                                <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged" Style="{StaticResource TabControlSliding}">
-                                    <TabItem Header="圖片浮水印">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="WatermarkGenerateImage_save4"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="文字浮水印">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="TextWatermarkGenerateImage_save4"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="高斯平滑化">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="GaussianSmonnthing_save4"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="一般平滑化">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="NormallySmonnthing_save4"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="傅立葉變換">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="DiscreteFourierTransform_save4"/>
-                                        </Border>
-                                    </TabItem>
-                                    <TabItem Header="逆傅立葉變換">
-                                        <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                            <Image x:Name="InverseDiscreteFourierTransform_save4"/>
-                                        </Border>
-                                    </TabItem>
-                                </TabControl>
-                            </hc:UniformSpacingPanel>
-                        </Border>
                     </hc:UniformSpacingPanel>
+                    <Canvas>
+                        <Expander Header="儲存圖片" Canvas.Top="100" Canvas.Right="30">
+                            <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
+                                <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
+                                    <Button Content="儲存圖片" Width="100" Height="30"  Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
+                                    <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged" Style="{StaticResource TabControlSliding}">
+                                        <TabItem Header="圖片浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="WatermarkGenerateImage_save5"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="文字浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="TextWatermarkGenerateImage_save5"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="移除浮水印">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="RemoveWarkmarkResultImage_save5"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="高斯平滑化">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="GaussianSmonnthing_save5"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="一般平滑化">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="NormallySmonnthing_save5"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="傅立葉變換">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="DiscreteFourierTransform_save5"/>
+                                            </Border>
+                                        </TabItem>
+                                        <TabItem Header="逆傅立葉變換">
+                                            <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
+                                                <Image x:Name="InverseDiscreteFourierTransform_save5"/>
+                                            </Border>
+                                        </TabItem>
+                                    </TabControl>
+                                </hc:UniformSpacingPanel>
+                            </Border>
+                        </Expander>
+                    </Canvas>
                 </Grid>
             </TabItem>
             <TabItem Header="關於">

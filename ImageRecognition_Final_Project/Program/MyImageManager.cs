@@ -23,35 +23,32 @@ namespace ImageRecognition_Final_Project.Program
         public Bitmap AddWatermark(ColorMatrix colorMatrix)
         {
             // 創建一個新的 Bitmap 來存儲合成後的圖片
-            proImage = new Bitmap(oriImage.Width, oriImage.Height);
+            Bitmap proImage = new Bitmap(oriImage.Width, oriImage.Height);
 
             using (Graphics graphics = Graphics.FromImage(proImage))
             {
                 graphics.DrawImage(oriImage, new Rectangle(0, 0, oriImage.Width, oriImage.Height));
 
                 // 設置浮水印的透明度
-                //ColorMatrix colorMatrix = new ColorMatrix();
-                //colorMatrix.Matrix33 = 0.5f; // 設置透明度為50%
                 ImageAttributes imageAttributes = new ImageAttributes();
                 imageAttributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
-                //防止浮水印圖片大於原圖
-                if (watermarkImage.Width > oriImage.Width || watermarkImage.Height > oriImage.Height)
-                {
-                    if (watermarkImage.Width >= watermarkImage.Height)
-                    {
-                        watermarkImage = ResizeImage(watermarkImage, oriImage.Width - 10, watermarkImage.Height * (oriImage.Width - 10) / watermarkImage.Width);
-                    }
-                    else
-                    {
-                        watermarkImage = ResizeImage(watermarkImage, watermarkImage.Width * (oriImage.Height - 10) / watermarkImage.Height, oriImage.Height - 10);
-                    }
-                }
 
-                int x = oriImage.Width - watermarkImage.Width - 10; // 右邊距 10px
-                int y = oriImage.Height - watermarkImage.Height - 10; // 下邊距 10px
-                graphics.DrawImage(watermarkImage, new Rectangle(x, y, watermarkImage.Width, watermarkImage.Height), 0, 0, watermarkImage.Width, watermarkImage.Height, GraphicsUnit.Pixel, imageAttributes);
+                // 計算浮水印的目標大小
+                int targetWidth = oriImage.Width / 3;
+                int targetHeight = oriImage.Height / 3;
+
+                // 確保浮水印的大小比例正確
+                float scale = Math.Min((float)targetWidth / watermarkImage.Width, (float)targetHeight / watermarkImage.Height);
+                int newWidth = (int)(watermarkImage.Width * scale);
+                int newHeight = (int)(watermarkImage.Height * scale);
+
+                // 計算浮水印的位置
+                int x = oriImage.Width - newWidth - 10; // 右邊距 10px
+                int y = oriImage.Height - newHeight - 10; // 下邊距 10px
+
+                // 繪製浮水印
+                graphics.DrawImage(watermarkImage, new Rectangle(x, y, newWidth, newHeight), 0, 0, watermarkImage.Width, watermarkImage.Height, GraphicsUnit.Pixel, imageAttributes);
             }
-
             return proImage;
         }
 
@@ -286,19 +283,20 @@ namespace ImageRecognition_Final_Project.Program
                 }
             }
         }
-        public Bitmap ResizeImage(Image originalImage, int targetWidth, int targetHeight)
-        {
 
-            Bitmap resizedImage = new Bitmap(targetWidth, targetHeight);
-            using (Graphics graphics = Graphics.FromImage(resizedImage))
-            {
-                graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        //public Bitmap ResizeImage(int targetWidth, int targetHeight)
+        //{
 
-                graphics.DrawImage(originalImage, 0, 0, targetWidth, targetHeight);
-            }
-            return resizedImage;
-        }
+        //    Bitmap resizedImage = new Bitmap(targetWidth, targetHeight);
+        //    using (Graphics graphics = Graphics.FromImage(resizedImage))
+        //    {
+        //        graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+        //        graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+        //        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+        //        graphics.DrawImage(oriImage, 0, 0, targetWidth, targetHeight);
+        //    }
+        //    return resizedImage;
+        //}
     }
 }
