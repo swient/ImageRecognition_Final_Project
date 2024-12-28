@@ -294,7 +294,7 @@
                                 <Image x:Name="GaussianSmoothing"/>
                             </Border>
                             <Grid>
-                                <Slider Name="Smoothing_Ambiguity" Height="20" Width="200" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Top" IsSnapToTickEnabled="True" Maximum="10" Value="3" TickFrequency="1" ValueChanged="Slider_Value_Change"/>
+                                <Slider Name="Smoothing_Ambiguity" Height="20" Width="200" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Top" IsSnapToTickEnabled="True" Minimum="1" Maximum="10" Value="3" TickFrequency="1" ValueChanged="Slider_Value_Change"/>
                             </Grid>
                             <Button Content="高斯平滑化" Width="150" Height="30" Click="GaussianSmoothing_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
