@@ -484,9 +484,16 @@ namespace ImageRecognition_Final_Project
                     HandyControl.Controls.Growl.Info("選擇了：" + selectedItem.Content);
                     switch (selectedItem.Content)
                     {
-                        case "option1" :
-
-                            proImage = removeMarkFunction.option1();
+                        case "vertical_padding":
+                            proImage = removeMarkFunction.vertical_padding();
+                            RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
+                            break;
+                        case "Vague":
+                            proImage = removeMarkFunction.Vague();
+                            RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
+                            break;
+                        case "emgucv":
+                            proImage = removeMarkFunction.emgucv();
                             RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
                             break;
                     }

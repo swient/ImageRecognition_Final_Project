@@ -209,9 +209,9 @@
                                 <StackPanel>
                                     <TextBlock Text="請選擇一個選項：" FontSize="16" Margin="0,0,0,10"/>
                                     <ComboBox Width="200" Height="30" SelectionChanged="Remove_watermark_mode_ComboBox">
-                                        <ComboBoxItem Content="option1"/>
-                                        <ComboBoxItem Content="option2"/>
-                                        <ComboBoxItem Content="option3"/>
+                                        <ComboBoxItem Content="vertical_padding"/>
+                                        <ComboBoxItem Content="Vague"/>
+                                        <ComboBoxItem Content="emgucv"/>
                                     </ComboBox>
                                 </StackPanel>
                             </Grid>
