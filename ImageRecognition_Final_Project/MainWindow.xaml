@@ -63,12 +63,12 @@
                                         </TabItem>
                                         <TabItem Header="高斯平滑化">
                                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                                <Image x:Name="GaussianSmonnthing_save1"/>
+                                                <Image x:Name="GaussianSmoothing_save1"/>
                                             </Border>
                                         </TabItem>
                                         <TabItem Header="一般平滑化">
                                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                                <Image x:Name="NormallySmonnthing_save1"/>
+                                                <Image x:Name="NormallySmoothing_save1"/>
                                             </Border>
                                         </TabItem>
                                         <TabItem Header="傅立葉變換">
@@ -154,12 +154,12 @@
                                         </TabItem>
                                         <TabItem Header="高斯平滑化">
                                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                                <Image x:Name="GaussianSmonnthing_save2"/>
+                                                <Image x:Name="GaussianSmoothing_save2"/>
                                             </Border>
                                         </TabItem>
                                         <TabItem Header="一般平滑化">
                                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                                <Image x:Name="NormallySmonnthing_save2"/>
+                                                <Image x:Name="NormallySmoothing_save2"/>
                                             </Border>
                                         </TabItem>
                                         <TabItem Header="傅立葉變換">
@@ -252,12 +252,12 @@
                                         </TabItem>
                                         <TabItem Header="高斯平滑化">
                                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                                <Image x:Name="GaussianSmonnthing_save3"/>
+                                                <Image x:Name="GaussianSmoothing_save3"/>
                                             </Border>
                                         </TabItem>
                                         <TabItem Header="一般平滑化">
                                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                                <Image x:Name="NormallySmonnthing_save3"/>
+                                                <Image x:Name="NormallySmoothing_save3"/>
                                             </Border>
                                         </TabItem>
                                         <TabItem Header="傅立葉變換">
@@ -282,30 +282,30 @@
                     <hc:UniformSpacingPanel Margin="80" Spacing="150" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                <Image x:Name="SmonnthingMainImage"/>
+                                <Image x:Name="SmoothingMainImage"/>
                             </Border>
                             <Grid Visibility="Hidden">
                                 <Button Width="0" Height="20"/>
                             </Grid>
-                            <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectMainImage_Button" Tag="SmonnthingMainImage" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="選擇主圖片" Width="150" Height="30" Click="SelectMainImage_Button" Tag="SmoothingMainImage" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                <Image x:Name="GaussianSmonnthing"/>
+                                <Image x:Name="GaussianSmoothing"/>
                             </Border>
                             <Grid>
-                                <Slider Name="Smonnthing_Ambiguity" Height="20" Width="200" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Top" IsSnapToTickEnabled="True" Maximum="10" Value="3" TickFrequency="1" ValueChanged="Slider_Value_Change"/>
+                                <Slider Name="Smoothing_Ambiguity" Height="20" Width="200" hc:TipElement.Visibility="Visible" hc:TipElement.Placement="Top" IsSnapToTickEnabled="True" Maximum="10" Value="3" TickFrequency="1" ValueChanged="Slider_Value_Change"/>
                             </Grid>
-                            <Button Content="高斯平滑化" Width="150" Height="30" Click="GaussianSmonnthing_Button" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="高斯平滑化" Width="150" Height="30" Click="GaussianSmoothing_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                         <hc:UniformSpacingPanel Spacing="50" Orientation="Vertical">
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                <Image x:Name="NormallySmonnthing"/>
+                                <Image x:Name="NormallySmoothing"/>
                             </Border>
-                            <Grid Visibility="Hidden">
-                                <Button Width="0" Height="20"/>
+                            <Grid x:Name="LoadingNormallySmoothing" Visibility="Hidden">
+                                <hc:LoadingLine Height="20"/>
                             </Grid>
-                            <Button Content="一般平滑" Width="150" Height="30" Click="NormallySmonnthing_Button" Style="{StaticResource ButtonPrimary}"/>
+                            <Button Content="一般平滑" Width="150" Height="30" Click="NormallySmoothing_Button" Style="{StaticResource ButtonPrimary}"/>
                         </hc:UniformSpacingPanel>
                     </hc:UniformSpacingPanel>
                     <Canvas>
@@ -331,12 +331,12 @@
                                         </TabItem>
                                         <TabItem Header="高斯平滑化">
                                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                                <Image x:Name="GaussianSmonnthing_save4"/>
+                                                <Image x:Name="GaussianSmoothing_save4"/>
                                             </Border>
                                         </TabItem>
                                         <TabItem Header="一般平滑化">
                                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                                <Image x:Name="NormallySmonnthing_save4"/>
+                                                <Image x:Name="NormallySmoothing_save4"/>
                                             </Border>
                                         </TabItem>
                                         <TabItem Header="傅立葉變換">
@@ -410,12 +410,12 @@
                                         </TabItem>
                                         <TabItem Header="高斯平滑化">
                                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                                <Image x:Name="GaussianSmonnthing_save5"/>
+                                                <Image x:Name="GaussianSmoothing_save5"/>
                                             </Border>
                                         </TabItem>
                                         <TabItem Header="一般平滑化">
                                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
-                                                <Image x:Name="NormallySmonnthing_save5"/>
+                                                <Image x:Name="NormallySmoothing_save5"/>
                                             </Border>
                                         </TabItem>
                                         <TabItem Header="傅立葉變換">

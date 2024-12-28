@@ -82,35 +82,82 @@ namespace ImageRecognition_Final_Project.Program
             return bitmap;
         }
 
-        public void GaussianSmonnthing()
+        public void GaussianSmoothing(int filter)
         {
             if (oriImage == null)
             {
                 throw new InvalidOperationException("Original image is not set.");
             }
 
+            // 設置高斯核的大小和標準差
+            int kernelSize = filter * 2 + 1; // 核的大小應該是奇數
+            double sigma = filter; // 標準差
+
+            // 創建高斯核
+            double[,] kernel = new double[kernelSize, kernelSize];
+            double sum = 0;
+            int halfSize = kernelSize / 2;
+
+            for (int y = -halfSize; y <= halfSize; y++)
+            {
+                for (int x = -halfSize; x <= halfSize; x++)
+                {
+                    double value = Math.Exp(-(x * x + y * y) / (2 * sigma * sigma)) / (2 * Math.PI * sigma * sigma);
+                    kernel[x + halfSize, y + halfSize] = value;
+                    sum += value;
+                }
+            }
+
+            // 正規化高斯核
+            for (int y = 0; y < kernelSize; y++)
+            {
+                for (int x = 0; x < kernelSize; x++)
+                {
+                    kernel[x, y] /= sum;
+                }
+            }
+
             // 創建一個新的 Bitmap 來存儲平滑化後的圖片
             proImage = new Bitmap(oriImage.Width, oriImage.Height);
 
-            using (Graphics graphics = Graphics.FromImage(proImage))
+            // 擴展邊界
+            Bitmap paddedImage = new Bitmap(oriImage.Width + 2 * halfSize, oriImage.Height + 2 * halfSize);
+            using (Graphics g = Graphics.FromImage(paddedImage))
             {
-                // 使用高斯模糊進行平滑化
-                ImageAttributes imageAttributes = new ImageAttributes();
-                float[][] colorMatrixElements = {
-                    new float[] {1, 0, 0, 0, 0},
-                    new float[] {0, 1, 0, 0, 0},
-                    new float[] {0, 0, 1, 0, 0},
-                    new float[] {0, 0, 0, 1, 0},
-                    new float[] {0, 0, 0, 0, 1}
-                };
-                ColorMatrix colorMatrix = new ColorMatrix(colorMatrixElements);
-                imageAttributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+                g.DrawImage(oriImage, new Rectangle(halfSize, halfSize, oriImage.Width, oriImage.Height));
+            }
 
-                graphics.DrawImage(oriImage, new Rectangle(0, 0, oriImage.Width, oriImage.Height), 0, 0, oriImage.Width, oriImage.Height, GraphicsUnit.Pixel, imageAttributes);
+            // 應用高斯模糊
+            for (int y = halfSize; y < paddedImage.Height - halfSize; y++)
+            {
+                for (int x = halfSize; x < paddedImage.Width - halfSize; x++)
+                {
+                    double r = 0, g = 0, b = 0;
+
+                    for (int ky = -halfSize; ky <= halfSize; ky++)
+                    {
+                        for (int kx = -halfSize; kx <= halfSize; kx++)
+                        {
+                            Color pixel = paddedImage.GetPixel(x + kx, y + ky);
+                            double kernelValue = kernel[kx + halfSize, ky + halfSize];
+
+                            r += pixel.R * kernelValue;
+                            g += pixel.G * kernelValue;
+                            b += pixel.B * kernelValue;
+                        }
+                    }
+
+                    int red = Math.Clamp((int)r, 0, 255);
+                    int green = Math.Clamp((int)g, 0, 255);
+                    int blue = Math.Clamp((int)b, 0, 255);
+
+                    proImage.SetPixel(x - halfSize, y - halfSize, Color.FromArgb(red, green, blue));
+                }
             }
         }
 
-        public void NormallySmonnthing(int filter)
+
+        public void NormallySmoothing(int filter)
         {
             if (oriImage == null)
             {
