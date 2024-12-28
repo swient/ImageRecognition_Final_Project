@@ -23,6 +23,7 @@ namespace ImageRecognition_Final_Project
         private Bitmap? proImage;
         private Bitmap? saveImage;
         private MyImageManager myImageManager;
+        private RemoveMarkFunction removeMarkFunction;
         private SharedViewModel sharedViewModel;
         double WatermarkSliderValue;
         double SmonnthingSliderValue;
@@ -42,6 +43,7 @@ namespace ImageRecognition_Final_Project
             watermarkImage = null;
             proImage = null;
             myImageManager = new MyImageManager(); // 初始化 myImageManager
+            removeMarkFunction = new RemoveMarkFunction();
             sharedViewModel = new SharedViewModel(); // 初始化 sharedViewModel
             WatermarkSliderValue = 0.5;
             SmonnthingSliderValue = 3.0;
@@ -85,7 +87,13 @@ namespace ImageRecognition_Final_Project
                         break;
                     //removewatermark需重新調整大小
                     case "RemoveMarkMainImage":
-                        selectedImage = myImageManager.ResizeImage(selectedImage, 490, selectedImage.Height * 490 / selectedImage.Width);
+                        if(selectedImage.Width>490)
+                            selectedImage = myImageManager.ResizeImage(selectedImage, 490, selectedImage.Height * 490 / selectedImage.Width);
+                        else if(selectedImage.Height>490)
+                            selectedImage = myImageManager.ResizeImage(selectedImage, selectedImage.Width * 490 / selectedImage.Height ,490);
+                        else
+                            selectedImage = myImageManager.ResizeImage(selectedImage, 490, selectedImage.Height * 490 / selectedImage.Width);
+                        removeMarkFunction.oriImage = selectedImage;
                         imageSource = BitmapToImageSource(selectedImage);
                         RemoveMarkMainImage.Source = imageSource;
                         break;
@@ -353,27 +361,21 @@ namespace ImageRecognition_Final_Project
                 current_save_select = tabControl.SelectedIndex;
                 switch (tabControl.SelectedIndex)
                 {
-                    //case "Watermark":
                     case 0:
                         saveImage = ConvertImageSourceToBitmap(WatermarkGenerateImage.Source);
                         break;
-                    //case "TextWatermark":
                     case 1:
                         saveImage = ConvertImageSourceToBitmap(TextWatermarkGenerateImage.Source);
                         break;
-                    //case "Gaussian_smoothing":
                     case 2:
                         saveImage = ConvertImageSourceToBitmap(GaussianSmonnthing.Source);
                         break;
-                    //case "general_smoothing":
                     case 3:
                         saveImage = ConvertImageSourceToBitmap(NormallySmonnthing.Source);
                         break;
-                    //case "Fourier_transform":
                     case 4:
                         saveImage = ConvertImageSourceToBitmap(DiscreteFourierTransform.Source);
                         break;
-                    //case "Inverse_Fourier_Transform":
                     case 5:
                         saveImage = ConvertImageSourceToBitmap(InverseDiscreteFourierTransform.Source);
                         break;
@@ -428,6 +430,31 @@ namespace ImageRecognition_Final_Project
                 return new Bitmap(stream);
             }
             return null;
+        }
+
+        private void MyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                ComboBoxItem selectedItem = e.AddedItems[0] as ComboBoxItem;
+                if (selectedItem != null)
+                {
+                    if (RemoveMarkMainImage.Source == null || RemoveWatermarkImage.Source == null)
+                    {
+                        MessageBox.Show("請先選擇浮水印圖片浮水印部分");
+                        return;
+                    }
+                    MessageBox.Show("選擇了：" + selectedItem.Content);
+                    switch (selectedItem.Content)
+                    {
+                        case "option1" :
+                            proImage = removeMarkFunction.option1();
+                            RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
+                            break;
+                    }
+                    //MessageBox.Show("選擇了："+selectedItem.Content);
+                }
+            }
         }
         private void ImageViewer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -508,6 +535,7 @@ namespace ImageRecognition_Final_Project
                 try
                 {
                     CroppedBitmap croppedBitmap = new CroppedBitmap(bitmapSource, cropRect);
+                    removeMarkFunction.MarkRect = cropRect;
                     RemoveWatermarkImage.Source = croppedBitmap;
                 }
                 catch (Exception ex)

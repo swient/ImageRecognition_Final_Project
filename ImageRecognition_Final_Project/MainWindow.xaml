@@ -191,6 +191,16 @@
                             <Border BorderBrush="Black" Width="255" Height="255" BorderThickness="1" Background="White">
                                 <Image x:Name="RemoveWatermarkImage"/>
                             </Border>
+                            <Grid Margin="20">
+                                <StackPanel>
+                                    <TextBlock Text="請選擇一個選項：" FontSize="16" Margin="0,0,0,10"/>
+                                    <ComboBox x:Name="MyComboBox" Width="200" Height="30" SelectionChanged="MyComboBox_SelectionChanged">
+                                        <ComboBoxItem Content="option1"/>
+                                        <ComboBoxItem Content="option2"/>
+                                        <ComboBoxItem Content="option3"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </Grid>
                             <Grid Visibility="Hidden">
                                 <Button Width="0" Height="20"/>
                             </Grid>
