@@ -437,14 +437,14 @@
             </TabItem>
             <TabItem Header="關於">
                 <Grid>
-                    <Button Width="250" Height="250" Click="About_Click">
+                    <Button Width="300" Height="250" Click="About_Click">
                         <Image Source="/Image/about.png"/>
                     </Button>
                 </Grid>
             </TabItem>
             <TabItem Header="設定">
                 <Grid>
-                    <Button Width="250" Height="250" Click="Settings_Click">
+                    <Button Width="300" Height="250" Click="Settings_Click">
                         <Image Source="/Image/settings.png"/>
                     </Button>
                 </Grid>

@@ -12,6 +12,9 @@
   <ItemGroup>
     <None Remove="about.png" />
     <None Remove="ImageRecognition_icom.ico" />
+    <None Remove="Image\Famouseegg.png" />
+    <None Remove="Image\pinshao.png" />
+    <None Remove="Image\swient.png" />
     <None Remove="settings.png" />
   </ItemGroup>
 
@@ -26,8 +29,11 @@
 
   <ItemGroup>
     <Resource Include="Image\about.png" />
+    <Resource Include="Image\Famouseegg.png" />
     <Resource Include="Image\ImageRecognition_icon.ico" />
+    <Resource Include="Image\pinshao.png" />
     <Resource Include="Image\settings.png" />
+    <Resource Include="Image\swient.png" />
   </ItemGroup>
 
 </Project>
