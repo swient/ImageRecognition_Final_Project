@@ -283,20 +283,5 @@ namespace ImageRecognition_Final_Project.Program
                 }
             }
         }
-
-        //public Bitmap ResizeImage(int targetWidth, int targetHeight)
-        //{
-
-        //    Bitmap resizedImage = new Bitmap(targetWidth, targetHeight);
-        //    using (Graphics graphics = Graphics.FromImage(resizedImage))
-        //    {
-        //        graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-        //        graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-        //        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-
-        //        graphics.DrawImage(oriImage, 0, 0, targetWidth, targetHeight);
-        //    }
-        //    return resizedImage;
-        //}
     }
 }

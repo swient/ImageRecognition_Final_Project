@@ -87,7 +87,7 @@ namespace ImageRecognition_Final_Project
                         break;
                     case "RemoveMarkMainImage":
                         oriImage = selectedImage;
-                        myImageManager.oriImage = selectedImage;
+                        removeMarkFunction.oriImage = selectedImage;
                         RemoveMarkMainImage.Source = imageSource;
                         break;
                     case "SmonnthingMainImage":
@@ -388,9 +388,11 @@ namespace ImageRecognition_Final_Project
                 current_save_select = tabControl.SelectedIndex;
                 switch (tabControl.SelectedIndex)
                 {
+                    //case "ImageWatermark":
                     case 0:
                         saveImage = ConvertImageSourceToBitmap(WatermarkGenerateImage.Source);
                         break;
+                    //case "TextWatermark":
                     case 1:
                         saveImage = ConvertImageSourceToBitmap(TextWatermarkGenerateImage.Source);
                         break;
@@ -467,27 +469,27 @@ namespace ImageRecognition_Final_Project
             return null;
         }
 
-        private void MyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Remove_watermark_mode_ComboBox(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
-                ComboBoxItem selectedItem = e.AddedItems[0] as ComboBoxItem;
+                ComboBoxItem? selectedItem = e.AddedItems[0] as ComboBoxItem;
                 if (selectedItem != null)
                 {
                     if (RemoveMarkMainImage.Source == null || RemoveWatermarkImage.Source == null)
                     {
-                        MessageBox.Show("請先選擇浮水印圖片浮水印部分");
+                        HandyControl.Controls.MessageBox.Show("請先選擇浮水印圖片浮水印部分");
                         return;
                     }
-                    MessageBox.Show("選擇了：" + selectedItem.Content);
+                    HandyControl.Controls.Growl.Info("選擇了：" + selectedItem.Content);
                     switch (selectedItem.Content)
                     {
                         case "option1" :
+
                             proImage = removeMarkFunction.option1();
                             RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
                             break;
                     }
-                    //MessageBox.Show("選擇了："+selectedItem.Content);
                 }
             }
         }

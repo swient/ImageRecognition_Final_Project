@@ -208,7 +208,7 @@
                             <Grid Margin="20">
                                 <StackPanel>
                                     <TextBlock Text="請選擇一個選項：" FontSize="16" Margin="0,0,0,10"/>
-                                    <ComboBox x:Name="MyComboBox" Width="200" Height="30" SelectionChanged="MyComboBox_SelectionChanged">
+                                    <ComboBox Width="200" Height="30" SelectionChanged="Remove_watermark_mode_ComboBox">
                                         <ComboBoxItem Content="option1"/>
                                         <ComboBoxItem Content="option2"/>
                                         <ComboBoxItem Content="option3"/>

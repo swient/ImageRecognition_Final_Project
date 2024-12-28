@@ -41,9 +41,5 @@ namespace ImageRecognition_Final_Project.Program
             }
             return proImage;
         }
-        
-
-        
-       
     }
 }
