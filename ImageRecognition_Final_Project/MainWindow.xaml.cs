@@ -232,38 +232,7 @@ namespace ImageRecognition_Final_Project
                 saveImage = ConvertImageSourceToBitmap(TextWatermarkGenerateImage.Source);
         }
 
-        private void RemoveWarkmarkResultImage_Button(object sender, RoutedEventArgs e)
-        {
-            if (oriImage == null || RemoveWatermarkImage.Source == null)
-            {
-                HandyControl.Controls.MessageBox.Show("請先選擇主圖片和選取浮水印圖片浮水印部分");
-                return;
-            }
-
-            switch (Removewatermarkmode)
-            {
-                case "option1":
-                    proImage = removeMarkFunction.option1();
-                    RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
-                    break;
-                default:
-                    HandyControl.Controls.Growl.Error("未知的移除浮水印模式！");
-                    break;
-            }
-
-            // 顯示合成後的圖片
-            RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
-            RemoveWarkmarkResultImage_save1.Source = BitmapToImageSource(proImage);
-            RemoveWarkmarkResultImage_save2.Source = BitmapToImageSource(proImage);
-            RemoveWarkmarkResultImage_save3.Source = BitmapToImageSource(proImage);
-            RemoveWarkmarkResultImage_save4.Source = BitmapToImageSource(proImage);
-            RemoveWarkmarkResultImage_save5.Source = BitmapToImageSource(proImage);
-            HandyControl.Controls.Growl.Success("浮水印移除成功！");
-
-            //防止未選擇圖片儲存bug
-            if (current_save_select == 2)
-                saveImage = ConvertImageSourceToBitmap(RemoveWarkmarkResultImage.Source);
-        }
+        
 
         private void GaussianSmoothing_Button(object sender, RoutedEventArgs e)
         {
@@ -492,7 +461,6 @@ namespace ImageRecognition_Final_Project
                 {
                     Removewatermarkmode = selectedItem.Content?.ToString() ?? string.Empty;
                     HandyControl.Controls.Growl.Info("選擇了：" + selectedItem.Content);
-<<<<<<< HEAD
                     switch (selectedItem.Content)
                     {
                         case "vertical_padding":
@@ -508,10 +476,20 @@ namespace ImageRecognition_Final_Project
                             RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
                             break;
                     }
-=======
->>>>>>> bc03ecd2dc8aa234f25ebb5f95a273d53bd45df1
                 }
             }
+            // 顯示合成後的圖片
+            RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
+            RemoveWarkmarkResultImage_save1.Source = BitmapToImageSource(proImage);
+            RemoveWarkmarkResultImage_save2.Source = BitmapToImageSource(proImage);
+            RemoveWarkmarkResultImage_save3.Source = BitmapToImageSource(proImage);
+            RemoveWarkmarkResultImage_save4.Source = BitmapToImageSource(proImage);
+            RemoveWarkmarkResultImage_save5.Source = BitmapToImageSource(proImage);
+            HandyControl.Controls.Growl.Success("浮水印移除成功！");
+
+            //防止未選擇圖片儲存bug
+            if (current_save_select == 2)
+                saveImage = ConvertImageSourceToBitmap(RemoveWarkmarkResultImage.Source);
         }
 
         private void RemoveMarkMainImage_MouseLeftDown(object sender, MouseButtonEventArgs e)
