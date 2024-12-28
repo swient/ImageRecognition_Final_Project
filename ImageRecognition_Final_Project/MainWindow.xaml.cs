@@ -31,6 +31,7 @@ namespace ImageRecognition_Final_Project
         double TextWatermarAngleValue;
         double TextWatermarFontSizeValue;
         string TextWatermarkInput;
+        string Removewatermarkmode;
         int current_save_select = 0; //追蹤更新
         //圖片裁切
         private System.Windows.Point startPoint;
@@ -51,6 +52,7 @@ namespace ImageRecognition_Final_Project
             TextWatermarAngleValue = 30;
             TextWatermarFontSizeValue = 50;
             TextWatermarkInput = "浮水印文字";
+            Removewatermarkmode = "option1";
             InitializeComponent();
         }
 
@@ -232,13 +234,22 @@ namespace ImageRecognition_Final_Project
 
         private void RemoveWarkmarkResultImage_Button(object sender, RoutedEventArgs e)
         {
-            if (oriImage == null)
+            if (oriImage == null || RemoveWatermarkImage.Source == null)
             {
-                HandyControl.Controls.MessageBox.Show("請先選擇主圖片和選取浮水印範圍！");
+                HandyControl.Controls.MessageBox.Show("請先選擇主圖片和選取浮水印圖片浮水印部分");
                 return;
             }
 
-            proImage = oriImage;
+            switch (Removewatermarkmode)
+            {
+                case "option1":
+                    proImage = removeMarkFunction.option1();
+                    RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
+                    break;
+                default:
+                    HandyControl.Controls.Growl.Error("未知的移除浮水印模式！");
+                    break;
+            }
 
             // 顯示合成後的圖片
             RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
@@ -479,12 +490,9 @@ namespace ImageRecognition_Final_Project
                 ComboBoxItem? selectedItem = e.AddedItems[0] as ComboBoxItem;
                 if (selectedItem != null)
                 {
-                    if (RemoveMarkMainImage.Source == null || RemoveWatermarkImage.Source == null)
-                    {
-                        HandyControl.Controls.MessageBox.Show("請先選擇浮水印圖片浮水印部分");
-                        return;
-                    }
+                    Removewatermarkmode = selectedItem.Content?.ToString() ?? string.Empty;
                     HandyControl.Controls.Growl.Info("選擇了：" + selectedItem.Content);
+<<<<<<< HEAD
                     switch (selectedItem.Content)
                     {
                         case "vertical_padding":
@@ -500,6 +508,8 @@ namespace ImageRecognition_Final_Project
                             RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
                             break;
                     }
+=======
+>>>>>>> bc03ecd2dc8aa234f25ebb5f95a273d53bd45df1
                 }
             }
         }
@@ -593,7 +603,7 @@ namespace ImageRecognition_Final_Project
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.MessageBox.Show($"Error cropping image: {ex.Message}");
+                    HandyControl.Controls.MessageBox.Show($"Error cropping image: {ex.Message}");
                 }
             }
         }
