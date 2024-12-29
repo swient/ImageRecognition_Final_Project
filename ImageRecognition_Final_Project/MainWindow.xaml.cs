@@ -26,12 +26,13 @@ namespace ImageRecognition_Final_Project
         private RemoveMarkFunction removeMarkFunction;
         private SharedViewModel sharedViewModel;
         double WatermarkSliderValue;
-        double SmonnthingSliderValue;
+        double SmoothingSliderValue;
         double TextWatermarTransparencyValue;
         double TextWatermarAngleValue;
         double TextWatermarFontSizeValue;
         string TextWatermarkInput;
-        int current_save_select = 0; //追蹤更新
+        string Removewatermarkmode;
+        int current_save_select; //追蹤更新
         //圖片裁切
         private System.Windows.Point startPoint;
         private System.Windows.Point endPoint;
@@ -43,14 +44,16 @@ namespace ImageRecognition_Final_Project
             watermarkImage = null;
             proImage = null;
             myImageManager = new MyImageManager(); // 初始化 myImageManager
-            removeMarkFunction = new RemoveMarkFunction();
+            removeMarkFunction = new RemoveMarkFunction(); // 初始化 removeMarkFunction
             sharedViewModel = new SharedViewModel(); // 初始化 sharedViewModel
             WatermarkSliderValue = 0.5;
-            SmonnthingSliderValue = 3.0;
+            SmoothingSliderValue = 3.0;
             TextWatermarTransparencyValue = 0.5;
             TextWatermarAngleValue = 30;
             TextWatermarFontSizeValue = 50;
+            current_save_select = 0;
             TextWatermarkInput = "浮水印文字";
+            Removewatermarkmode = "option1";
             InitializeComponent();
         }
 
@@ -90,10 +93,10 @@ namespace ImageRecognition_Final_Project
                         removeMarkFunction.oriImage = selectedImage;
                         RemoveMarkMainImage.Source = imageSource;
                         break;
-                    case "SmonnthingMainImage":
+                    case "SmoothingMainImage":
                         oriImage = selectedImage;
                         myImageManager.oriImage = selectedImage; // 設定為主影像
-                        SmonnthingMainImage.Source = imageSource;
+                        SmoothingMainImage.Source = imageSource;
                         break;
                     case "FourierTransformMainImage":
                         oriImage = selectedImage;
@@ -140,9 +143,9 @@ namespace ImageRecognition_Final_Project
                         TextWatermarFontSizeValue = slider.Value;
                         // 處理大小滑動條的變化
                         break;
-                    case "Smonnthing_Ambiguity":
+                    case "Smoothing_Ambiguity":
                         // 處理大小滑動條的變化
-                        SmonnthingSliderValue = slider.Value;
+                        SmoothingSliderValue = slider.Value;
                         break;
                     case "Watermark_Transparency":
                         // 處理大小滑動條的變化
@@ -212,7 +215,7 @@ namespace ImageRecognition_Final_Project
                 Matrix33 = (float)TextWatermarTransparencyValue
             };
 
-            TextWatermarkInput= TextWatermarkBox.Text;
+            TextWatermarkInput = TextWatermarkBox.Text;
 
             proImage = myImageManager.AddTextWatermark(TextWatermarkInput, colorMatrix, (int)TextWatermarAngleValue, (int)TextWatermarFontSizeValue);
 
@@ -232,13 +235,30 @@ namespace ImageRecognition_Final_Project
 
         private void RemoveWarkmarkResultImage_Button(object sender, RoutedEventArgs e)
         {
-            if (oriImage == null)
+            if (oriImage == null || RemoveWatermarkImage.Source == null)
             {
-                HandyControl.Controls.MessageBox.Show("請先選擇主圖片和選取浮水印範圍！");
+                HandyControl.Controls.MessageBox.Show("請先選擇主圖片和選取浮水印圖片浮水印部分");
                 return;
             }
 
-            proImage = oriImage;
+            switch (Removewatermarkmode)
+            {
+                case "vertical_padding":
+                    proImage = removeMarkFunction.vertical_padding();
+                    RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
+                    break;
+                case "Vague":
+                    proImage = removeMarkFunction.Vague();
+                    RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
+                    break;
+                case "emgucv":
+                    proImage = removeMarkFunction.emgucv();
+                    RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
+                    break;
+                default:
+                    HandyControl.Controls.Growl.Error("未知的移除浮水印模式！");
+                    break;
+            }
 
             // 顯示合成後的圖片
             RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
@@ -254,7 +274,7 @@ namespace ImageRecognition_Final_Project
                 saveImage = ConvertImageSourceToBitmap(RemoveWarkmarkResultImage.Source);
         }
 
-        private void GaussianSmonnthing_Button(object sender, RoutedEventArgs e)
+        private void GaussianSmoothing_Button(object sender, RoutedEventArgs e)
         {
             if (oriImage == null)
             {
@@ -264,38 +284,41 @@ namespace ImageRecognition_Final_Project
 
             ColorMatrix colorMatrix = new()
             {
-                Matrix33 = (float)SmonnthingSliderValue
+                Matrix33 = (float)SmoothingSliderValue
             };
-            myImageManager.GaussianSmonnthing();
+            myImageManager.GaussianSmoothing((int)SmoothingSliderValue);
 
             // 顯示合成後的圖片
-            GaussianSmonnthing.Source = BitmapToImageSource(myImageManager.proImage);
-            GaussianSmonnthing_save1.Source = BitmapToImageSource(myImageManager.proImage);
-            GaussianSmonnthing_save2.Source = BitmapToImageSource(myImageManager.proImage);
-            GaussianSmonnthing_save3.Source = BitmapToImageSource(myImageManager.proImage);
-            GaussianSmonnthing_save4.Source = BitmapToImageSource(myImageManager.proImage);
-            GaussianSmonnthing_save5.Source = BitmapToImageSource(myImageManager.proImage);
+            GaussianSmoothing.Source = BitmapToImageSource(myImageManager.proImage);
+            GaussianSmoothing_save1.Source = BitmapToImageSource(myImageManager.proImage);
+            GaussianSmoothing_save2.Source = BitmapToImageSource(myImageManager.proImage);
+            GaussianSmoothing_save3.Source = BitmapToImageSource(myImageManager.proImage);
+            GaussianSmoothing_save4.Source = BitmapToImageSource(myImageManager.proImage);
+            GaussianSmoothing_save5.Source = BitmapToImageSource(myImageManager.proImage);
             HandyControl.Controls.Growl.Success("高斯模糊成功！");
+
+            //防止未選擇圖片儲存bug
             if (current_save_select == 3)
-                saveImage = ConvertImageSourceToBitmap(WatermarkGenerateImage.Source);
+                saveImage = ConvertImageSourceToBitmap(GaussianSmoothing.Source);
         }
 
-        private void NormallySmonnthing_Button(object sender, RoutedEventArgs e)
+        private async void NormallySmoothing_Button(object sender, RoutedEventArgs e)
         {
             if (oriImage == null)
             {
                 HandyControl.Controls.MessageBox.Show("請先選擇主圖片！");
                 return;
             }
-            myImageManager.NormallySmonnthing((int)SmonnthingSliderValue);
-
+            LoadingNormallySmoothing.Visibility = Visibility.Visible;
+            await Task.Run(() => myImageManager.NormallySmoothing((int)SmoothingSliderValue));
+            LoadingNormallySmoothing.Visibility = Visibility.Hidden;
             // 顯示合成後的圖片
-            NormallySmonnthing.Source = BitmapToImageSource(myImageManager.proImage);
-            NormallySmonnthing_save1.Source = BitmapToImageSource(myImageManager.proImage);
-            NormallySmonnthing_save2.Source = BitmapToImageSource(myImageManager.proImage);
-            NormallySmonnthing_save3.Source = BitmapToImageSource(myImageManager.proImage);
-            NormallySmonnthing_save4.Source = BitmapToImageSource(myImageManager.proImage);
-            NormallySmonnthing_save5.Source = BitmapToImageSource(myImageManager.proImage);
+            NormallySmoothing.Source = BitmapToImageSource(myImageManager.proImage);
+            NormallySmoothing_save1.Source = BitmapToImageSource(myImageManager.proImage);
+            NormallySmoothing_save2.Source = BitmapToImageSource(myImageManager.proImage);
+            NormallySmoothing_save3.Source = BitmapToImageSource(myImageManager.proImage);
+            NormallySmoothing_save4.Source = BitmapToImageSource(myImageManager.proImage);
+            NormallySmoothing_save5.Source = BitmapToImageSource(myImageManager.proImage);
             HandyControl.Controls.Growl.Success("一般平滑化成功！");
             if (current_save_select == 4)
                 saveImage = ConvertImageSourceToBitmap(WatermarkGenerateImage.Source);
@@ -321,7 +344,7 @@ namespace ImageRecognition_Final_Project
             HandyControl.Controls.Growl.Success("傅立葉變換成功！");
 
             if (current_save_select == 5)
-                saveImage = ConvertImageSourceToBitmap(WatermarkGenerateImage.Source);
+                saveImage = ConvertImageSourceToBitmap(DiscreteFourierTransform.Source);
         }
 
         private async void InverseDiscreteFourierTransform_Button(object sender, RoutedEventArgs e)
@@ -344,7 +367,7 @@ namespace ImageRecognition_Final_Project
             HandyControl.Controls.Growl.Success("逆傅立葉變換成功！");
 
             if (current_save_select == 6)
-                saveImage = ConvertImageSourceToBitmap(WatermarkGenerateImage.Source);
+                saveImage = ConvertImageSourceToBitmap(InverseDiscreteFourierTransform.Source);
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -383,7 +406,7 @@ namespace ImageRecognition_Final_Project
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 確保在選擇項目之後才執行
-            if (e.Source is System.Windows.Controls.TabControl tabControl && tabControl.SelectedItem is System.Windows.Controls.TabItem selectedTab)
+            if (e.Source is TabControl tabControl && tabControl.SelectedItem is TabItem selectedTab)
             {
                 current_save_select = tabControl.SelectedIndex;
                 switch (tabControl.SelectedIndex)
@@ -402,11 +425,11 @@ namespace ImageRecognition_Final_Project
                         break;
                     //case "Gaussian_smoothing":
                     case 3:
-                        saveImage = ConvertImageSourceToBitmap(GaussianSmonnthing.Source);
+                        saveImage = ConvertImageSourceToBitmap(GaussianSmoothing.Source);
                         break;
                     //case "general_smoothing":
                     case 4:
-                        saveImage = ConvertImageSourceToBitmap(NormallySmonnthing.Source);
+                        saveImage = ConvertImageSourceToBitmap(NormallySmoothing.Source);
                         break;
                     //case "Fourier_transform":
                     case 5:
@@ -476,27 +499,8 @@ namespace ImageRecognition_Final_Project
                 ComboBoxItem? selectedItem = e.AddedItems[0] as ComboBoxItem;
                 if (selectedItem != null)
                 {
-                    if (RemoveMarkMainImage.Source == null || RemoveWatermarkImage.Source == null)
-                    {
-                        HandyControl.Controls.MessageBox.Show("請先選擇浮水印圖片浮水印部分");
-                        return;
-                    }
+                    Removewatermarkmode = selectedItem.Content?.ToString() ?? string.Empty;
                     HandyControl.Controls.Growl.Info("選擇了：" + selectedItem.Content);
-                    switch (selectedItem.Content)
-                    {
-                        case "vertical_padding":
-                            proImage = removeMarkFunction.vertical_padding();
-                            RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
-                            break;
-                        case "Vague":
-                            proImage = removeMarkFunction.Vague();
-                            RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
-                            break;
-                        case "emgucv":
-                            proImage = removeMarkFunction.emgucv();
-                            RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
-                            break;
-                    }
                 }
             }
         }
@@ -505,21 +509,21 @@ namespace ImageRecognition_Final_Project
         {
             //如果沒有圖像
             if (RemoveMarkMainImage.Source == null) return;
-                //獲取起始座標
-                startPoint = e.GetPosition(RemoveMarkMainImage);
-                //繪製矩形
-                SelectionRect.Visibility = Visibility.Visible;
-                //設置矩形左上角座標
-                Canvas.SetLeft(SelectionRect, startPoint.X);
-                Canvas.SetTop(SelectionRect, startPoint.Y);
-                //初始化矩形
-                SelectionRect.Width = 0;
-                SelectionRect.Height = 0;
-                //標記正在剪裁
-                isSelecting = true;
+            //獲取起始座標
+            startPoint = e.GetPosition(RemoveMarkMainImage);
+            //繪製矩形
+            SelectionRect.Visibility = Visibility.Visible;
+            //設置矩形左上角座標
+            Canvas.SetLeft(SelectionRect, startPoint.X);
+            Canvas.SetTop(SelectionRect, startPoint.Y);
+            //初始化矩形
+            SelectionRect.Width = 0;
+            SelectionRect.Height = 0;
+            //標記正在剪裁
+            isSelecting = true;
 
-                // 捕捉滑鼠
-                RemoveMarkMainImage.CaptureMouse();
+            // 捕捉滑鼠
+            RemoveMarkMainImage.CaptureMouse();
         }
 
         private void RemoveMarkMainImage_MouseMove(object sender, MouseEventArgs e)
@@ -590,7 +594,7 @@ namespace ImageRecognition_Final_Project
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.MessageBox.Show($"Error cropping image: {ex.Message}");
+                    HandyControl.Controls.MessageBox.Show($"Error cropping image: {ex.Message}");
                 }
             }
         }
