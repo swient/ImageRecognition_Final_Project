@@ -243,8 +243,16 @@ namespace ImageRecognition_Final_Project
 
             switch (Removewatermarkmode)
             {
-                case "option1":
-                    proImage = removeMarkFunction.option1();
+                case "vertical_padding":
+                    proImage = removeMarkFunction.vertical_padding();
+                    RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
+                    break;
+                case "Vague":
+                    proImage = removeMarkFunction.Vague();
+                    RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
+                    break;
+                case "emgucv":
+                    proImage = removeMarkFunction.emgucv();
                     RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
                     break;
                 default:
