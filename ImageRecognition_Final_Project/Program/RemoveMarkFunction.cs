@@ -102,7 +102,7 @@ namespace ImageRecognition_Final_Project.Program
             Mat kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new System.Drawing.Size(3, 3), new System.Drawing.Point(-1, -1));
             CvInvoke.Dilate(mask, dilatedMask, kernel, new System.Drawing.Point(-1, -1), 1, BorderType.Default, default(MCvScalar));
 
-            // 修复圖像
+            // 修復圖像
             Mat result = new Mat();
             CvInvoke.Inpaint(image, dilatedMask, result, 3, InpaintType.Telea);
 
@@ -132,7 +132,7 @@ namespace ImageRecognition_Final_Project.Program
             System.Drawing.Rectangle roi = new System.Drawing.Rectangle(MarkRect.X, MarkRect.Y, MarkRect.Width, MarkRect.Height);
             CvInvoke.Rectangle(mask, roi, new MCvScalar(255), -1); // 填充矩形
 
-            // 修复圖像，僅對選定區域生效
+            // 修復圖像，僅對選定區域生效
             Mat result = new Mat();
             CvInvoke.Inpaint(image, mask, result, 3, InpaintType.Telea);
 
@@ -160,11 +160,11 @@ namespace ImageRecognition_Final_Project.Program
             Mat kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new System.Drawing.Size(3, 3), new System.Drawing.Point(-1, -1));
             CvInvoke.Dilate(mask, dilatedMask, kernel, new System.Drawing.Point(-1, -1), 1, BorderType.Default, default(MCvScalar));
 
-            // 修复圖像
+            // 修復圖像
             Mat result = new Mat();
             CvInvoke.Inpaint(image, dilatedMask, result, 3, InpaintType.Telea);
 
-            // 將修复后的 Mat 轉換為 Bitmap 並儲存到 proImage
+            // 將修復後的 Mat 轉換為 Bitmap 並儲存到 proImage
             proImage = result.ToBitmap();
 
             return proImage;
@@ -382,5 +382,3 @@ namespace ImageRecognition_Final_Project.Program
         }
     }
 }
-    
-

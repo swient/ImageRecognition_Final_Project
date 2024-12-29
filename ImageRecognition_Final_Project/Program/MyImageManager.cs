@@ -84,11 +84,6 @@ namespace ImageRecognition_Final_Project.Program
 
         public void GaussianSmoothing(int filter)
         {
-            if (oriImage == null)
-            {
-                throw new InvalidOperationException("Original image is not set.");
-            }
-
             // 設置高斯核的大小和標準差
             int kernelSize = filter * 2 + 1; // 核的大小應該是奇數
             double sigma = filter; // 標準差
@@ -155,7 +150,6 @@ namespace ImageRecognition_Final_Project.Program
                 }
             }
         }
-
 
         public void NormallySmoothing(int filter)
         {
