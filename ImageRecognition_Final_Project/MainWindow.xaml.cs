@@ -552,9 +552,12 @@ namespace ImageRecognition_Final_Project
         private void RemoveMarkMainImage_MouseLeftUp(object sender, MouseButtonEventArgs e)
         {
             if (!isSelecting || RemoveMarkMainImage.Source == null) return;
-
+            // 重置選擇狀態
             isSelecting = false;
+            // 隱藏選擇矩形
             SelectionRect.Visibility = Visibility.Collapsed;
+            // 釋放滑鼠捕捉
+            RemoveMarkMainImage.ReleaseMouseCapture();
 
             endPoint = e.GetPosition(RemoveMarkMainImage);
 
@@ -594,7 +597,7 @@ namespace ImageRecognition_Final_Project
                 }
                 catch (Exception ex)
                 {
-                    HandyControl.Controls.MessageBox.Show($"Error cropping image: {ex.Message}");
+                    HandyControl.Controls.MessageBox.Show($"裁切影像錯誤: {ex.Message}");
                 }
             }
         }
