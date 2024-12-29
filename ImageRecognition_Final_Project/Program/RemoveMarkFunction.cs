@@ -47,7 +47,6 @@ namespace ImageRecognition_Final_Project.Program
                         int b = (topPixel.B + bottomPixel.B) / 2;
 
                         proImage.SetPixel(x, y, Color.FromArgb(r, g, b));
-
                     }
                 }
             }
@@ -201,9 +200,9 @@ namespace ImageRecognition_Final_Project.Program
 
             Bitmap resultImage = new Bitmap(oriImage.Width, oriImage.Height);
 
-            for (int x = MarkRect.X; x < MarkRect.X + MarkRect.Width; x++)
+            for (int x = MarkRect.X + 1; x < MarkRect.X + MarkRect.Width; x++)
             {
-                for (int y = MarkRect.Y; y < MarkRect.Y + MarkRect.Height; y++)
+                for (int y = MarkRect.Y + 1; y < MarkRect.Y + MarkRect.Height; y++)
                 {
                     int pixelX = 0;
                     int pixelY = 0;
@@ -213,7 +212,6 @@ namespace ImageRecognition_Final_Project.Program
                     {
                         for (int i = -1; i <= 1; i++)
                         {
-                            
                             Color pixel = grayImage.GetPixel(x + i, y + j);
                             int grayValue = pixel.R; // 假設是灰階圖像
                             pixelX += grayValue * sobelX[j + 1, i + 1];
@@ -237,9 +235,9 @@ namespace ImageRecognition_Final_Project.Program
             Bitmap binaryImage = ConvertToBinary(inputImage);
             Bitmap erodedImage = new Bitmap(binaryImage.Width, binaryImage.Height);
 
-            for (int x = MarkRect.X; x < MarkRect.X + MarkRect.Width; x++)
+            for (int x = MarkRect.X + 1; x < MarkRect.X + MarkRect.Width; x++)
             {
-                for (int y = MarkRect.Y; y < MarkRect.Y + MarkRect.Height; y++)
+                for (int y = MarkRect.Y + 1; y < MarkRect.Y + MarkRect.Height; y++)
                 {
                     bool isBackground = true;
 
@@ -248,7 +246,6 @@ namespace ImageRecognition_Final_Project.Program
                     {
                         for (int i = -1; i <= 1; i++)
                         {
-                            
                             Color pixel = binaryImage.GetPixel(x + i, y + j);
                             if (pixel.R == 255) // 前景像素
                             {
