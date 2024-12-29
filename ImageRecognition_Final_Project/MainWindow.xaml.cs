@@ -235,24 +235,51 @@ namespace ImageRecognition_Final_Project
 
         private void RemoveWarkmarkResultImage_Button(object sender, RoutedEventArgs e)
         {
-            if (oriImage == null || RemoveWatermarkImage.Source == null)
+            if (oriImage == null)
             {
-                HandyControl.Controls.MessageBox.Show("請先選擇主圖片和選取浮水印部分");
+                HandyControl.Controls.MessageBox.Show("請先選擇主圖片");
                 return;
             }
 
             switch (Removewatermarkmode)
             {
-                case "vertical_padding":
-                    proImage = removeMarkFunction.vertical_padding();
+                case "垂直填充":
+                    if (RemoveWatermarkImage.Source == null){
+                        HandyControl.Controls.MessageBox.Show("請先選取浮水印部分");
+                        return;
+                    }
+                    proImage = removeMarkFunction.Vertical_padding();
                     RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
                     break;
-                case "Vague":
-                    proImage = removeMarkFunction.Vague();
+                case "水平填充":
+                    if (RemoveWatermarkImage.Source == null)
+                    {
+                        HandyControl.Controls.MessageBox.Show("請先選取浮水印部分");
+                        return;
+                    }
+                    proImage = removeMarkFunction.Horizontal_padding();
                     RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
                     break;
-                case "emgucv":
-                    proImage = removeMarkFunction.emgucv();
+                case "大範圍浮水印移除":
+                    if (RemoveWatermarkImage.Source == null)
+                    {
+                        HandyControl.Controls.MessageBox.Show("請先選取浮水印部分");
+                        return;
+                    }
+                    proImage = removeMarkFunction.EmgucvLargeArea();
+                    RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
+                    break;
+                case "小範圍浮水印移除":
+                    if (RemoveWatermarkImage.Source == null)
+                    {
+                        HandyControl.Controls.MessageBox.Show("請先選取浮水印部分");
+                        return;
+                    }
+                    proImage = removeMarkFunction.EmgucvSmallArea();
+                    RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
+                    break;
+                case "高對比浮水印移除":
+                    proImage = removeMarkFunction.EmgucvHighContrast();
                     RemoveWarkmarkResultImage.Source = BitmapToImageSource(proImage);
                     break;
                 default:
@@ -272,6 +299,20 @@ namespace ImageRecognition_Final_Project
             //防止未選擇圖片儲存bug
             if (current_save_select == 2)
                 saveImage = ConvertImageSourceToBitmap(RemoveWarkmarkResultImage.Source);
+        }
+
+        private void RemoveWarkmarkBack_Button(object sender, RoutedEventArgs e)
+        {
+            if (oriImage == null || RemoveWarkmarkResultImage.Source == null)
+            {
+                HandyControl.Controls.MessageBox.Show("請先完成結果");
+                return;
+            }
+            oriImage = ConvertImageSourceToBitmap(RemoveWarkmarkResultImage.Source);
+            removeMarkFunction.oriImage = ConvertImageSourceToBitmap(RemoveWarkmarkResultImage.Source);
+            RemoveMarkMainImage.Source = RemoveWarkmarkResultImage.Source;
+            // 顯示合成後的圖片
+            HandyControl.Controls.Growl.Success("存回原始影像成功！");
         }
 
         private void GaussianSmoothing_Button(object sender, RoutedEventArgs e)

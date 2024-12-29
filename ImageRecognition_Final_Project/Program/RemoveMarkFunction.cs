@@ -6,7 +6,7 @@ using System.Drawing.Imaging;
 using Emgu.CV;
 using Emgu.CV.Structure;
 using Emgu.CV.CvEnum;
-
+using Emgu.CV.Reg;
 
 namespace ImageRecognition_Final_Project.Program
 {
@@ -16,14 +16,14 @@ namespace ImageRecognition_Final_Project.Program
         public Bitmap proImage; // 處理後圖像
         public Int32Rect MarkRect; // 浮水印區域
         
-
         public RemoveMarkFunction()
         {
             oriImage = new Bitmap(1, 1);
             proImage = new Bitmap(1, 1);
         }
-        //像素填補
-        public Bitmap vertical_padding()
+
+        //垂直像素填充
+        public Bitmap Vertical_padding()
         {
             proImage = new Bitmap(oriImage);
             //創建遮罩
@@ -47,108 +47,138 @@ namespace ImageRecognition_Final_Project.Program
                         int b = (topPixel.B + bottomPixel.B) / 2;
 
                         proImage.SetPixel(x, y, Color.FromArgb(r, g, b));
-               
+
                     }
                 }
             }
             return proImage;
         }
-        public Bitmap Vague()
+
+        //水平像素填充
+        public Bitmap Horizontal_padding()
         {
             proImage = new Bitmap(oriImage);
-
-            // 創建遮罩
+            //創建遮罩
             bool[,] Mask = new bool[oriImage.Width, oriImage.Height];
             Mask = ApplyErosionAndDilation();
-
             for (int x = MarkRect.X; x < MarkRect.X + MarkRect.Width; x++)
             {
                 for (int y = MarkRect.Y; y < MarkRect.Y + MarkRect.Height; y++)
                 {
                     if (Mask[x, y])
                     {
-                        // 使用周圍像素來計算加權平均
-                        int radius = 3; // 計算範圍半徑，根據需要調整
-                        int r = 0, g = 0, b = 0, weightSum = 0;
+                        // 獲取左右兩列像素的平均值
+                        int leftX = MarkRect.X - 1 >= 0 ? MarkRect.X - 1 : MarkRect.X;
+                        int rightX = MarkRect.X + MarkRect.Width < oriImage.Width ? MarkRect.X + MarkRect.Width : MarkRect.X;
 
-                        // 計算周圍區域像素的加權平均
-                        for (int dx = -radius; dx <= radius; dx++)
-                        {
-                            for (int dy = -radius; dy <= radius; dy++)
-                            {
-                                int newX = x + dx;
-                                int newY = y + dy;
+                        Color leftPixel = oriImage.GetPixel(leftX, y);
+                        Color rightPixel = oriImage.GetPixel(rightX, y);
 
-                                if (newX >= 0 && newX < oriImage.Width && newY >= 0 && newY < oriImage.Height)
-                                {
-                                    // 確保權重隨距離遠近而減少
-                                    int weight = Math.Max(0, radius - Math.Abs(dx) - Math.Abs(dy)); // 距離越遠權重越小
-                                    
-                                    Color pixel = oriImage.GetPixel(newX, newY);
-                                    r += pixel.R * weight;
-                                    g += pixel.G * weight;
-                                    b += pixel.B * weight;
-                                    weightSum += weight;
-                                }
-                            }
-                        }
+                        int r = (leftPixel.R + rightPixel.R) / 2;
+                        int g = (leftPixel.G + rightPixel.G) / 2;
+                        int b = (leftPixel.B + rightPixel.B) / 2;
 
-                        // 計算加權平均顏色
-                        if (weightSum > 0)
-                        {
-                            r /= weightSum;
-                            g /= weightSum;
-                            b /= weightSum;
-                        }
-
-                        // 設置新的像素顏色
                         proImage.SetPixel(x, y, Color.FromArgb(r, g, b));
                     }
                 }
             }
-
             return proImage;
         }
-        public Bitmap emgucv()
+
+        public Bitmap EmgucvLargeArea()
         {
-            // 檢查 oriImage 是否為有效圖像
-            if (oriImage == null || oriImage.Width == 1 || oriImage.Height == 1)
-            {
-                throw new ArgumentException("Invalid original image.");
-            }
+            // 將 Bitmap 轉換為 Mat
+            Mat image = BitmapToMat(oriImage);
 
-            // 將原始Bitmap轉換為Emgu.CV的Image格式
-            Image<Bgr, byte> image;
-            try
-            {
-                image = oriImage.ToImage<Bgr, byte>();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Failed to convert Bitmap to OpenCV Image: " + ex.Message);
-            }
+            // 轉換為灰階圖像
+            Mat gray = new Mat();
+            CvInvoke.CvtColor(image, gray, ColorConversion.Bgr2Gray);
 
-            // 創建遮罩
-            Image<Gray, byte> mask = new Image<Gray, byte>(image.Width, image.Height);
+            // 閾值分割生成遮罩
+            Mat mask = new Mat();
+            CvInvoke.Threshold(gray, mask, 200, 255, ThresholdType.Binary);
 
-            // 用白色填充遮罩，並將MarkRect區域設為黑色
-            mask.SetValue(new MCvScalar(0)); // 黑色
-            mask.ROI = new System.Drawing.Rectangle(MarkRect.X, MarkRect.Y, MarkRect.Width, MarkRect.Height);
-            mask.SetValue(new MCvScalar(255)); // 白色
-            mask.ROI = System.Drawing.Rectangle.Empty; // 清除 ROI
+            // 膨脹遮罩
+            Mat dilatedMask = new Mat();
+            Mat kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new System.Drawing.Size(3, 3), new System.Drawing.Point(-1, -1));
+            CvInvoke.Dilate(mask, dilatedMask, kernel, new System.Drawing.Point(-1, -1), 1, BorderType.Default, default(MCvScalar));
 
-            // 使用修補方法填補浮水印區域
-            CvInvoke.Inpaint(image, mask, image, 3, InpaintType.Telea);
+            // 修复圖像
+            Mat result = new Mat();
+            CvInvoke.Inpaint(image, dilatedMask, result, 3, InpaintType.Telea);
 
-            // 將處理後的圖像轉回為Bitmap
-            proImage = image.ToBitmap();
+            // 將修復後的區域擷取出來
+            System.Drawing.Rectangle roi = new System.Drawing.Rectangle(MarkRect.X, MarkRect.Y, MarkRect.Width, MarkRect.Height);
+            Mat repairedRegion = new Mat(result, roi);
+
+            // 將擷取出的區域填入到原始圖像的對應位置
+            Mat originalImage = BitmapToMat(oriImage);
+            repairedRegion.CopyTo(new Mat(originalImage, roi));
+
+            // 將最終結果轉換為 Bitmap 並儲存到 proImage
+            proImage = originalImage.ToBitmap();
+            return proImage;
+        }
+
+        public Bitmap EmgucvSmallArea()
+        {
+            // 將 Bitmap 轉換為 Mat
+            Mat image = BitmapToMat(oriImage);
+
+            // 初始化遮罩為全黑（0）
+            Mat mask = new Mat(image.Size, DepthType.Cv8U, 1);
+            mask.SetTo(new MCvScalar(0));
+
+            // 根據 MarkRect 在遮罩上繪製白色矩形（255）
+            System.Drawing.Rectangle roi = new System.Drawing.Rectangle(MarkRect.X, MarkRect.Y, MarkRect.Width, MarkRect.Height);
+            CvInvoke.Rectangle(mask, roi, new MCvScalar(255), -1); // 填充矩形
+
+            // 修复圖像，僅對選定區域生效
+            Mat result = new Mat();
+            CvInvoke.Inpaint(image, mask, result, 3, InpaintType.Telea);
+
+            // 將修復後的 Mat 轉換為 Bitmap 並儲存到 proImage
+            proImage = result.ToBitmap();
 
             return proImage;
         }
 
+        public Bitmap EmgucvHighContrast()
+        {
+            // 將 Bitmap 轉換為 Mat
+            Mat image = BitmapToMat(oriImage);
 
+            // 轉換為灰階圖像
+            Mat gray = new Mat();
+            CvInvoke.CvtColor(image, gray, ColorConversion.Bgr2Gray);
 
+            // 閾值分割生成遮罩
+            Mat mask = new Mat();
+            CvInvoke.Threshold(gray, mask, 200, 255, ThresholdType.Binary);
 
+            // 膨脹遮罩
+            Mat dilatedMask = new Mat();
+            Mat kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new System.Drawing.Size(3, 3), new System.Drawing.Point(-1, -1));
+            CvInvoke.Dilate(mask, dilatedMask, kernel, new System.Drawing.Point(-1, -1), 1, BorderType.Default, default(MCvScalar));
+
+            // 修复圖像
+            Mat result = new Mat();
+            CvInvoke.Inpaint(image, dilatedMask, result, 3, InpaintType.Telea);
+
+            // 將修复后的 Mat 轉換為 Bitmap 並儲存到 proImage
+            proImage = result.ToBitmap();
+
+            return proImage;
+        }
+
+        private Mat BitmapToMat(Bitmap bitmap)
+        {
+            // 使用 .Clone() 創建新 Mat，避免原始對象被意外銷毀
+            using (Image<Bgr, byte> img = bitmap.ToImage<Bgr, byte>())
+            {
+                return img.Mat.Clone();
+            }
+        }
 
         // 邊緣檢測 Sobel
         public Bitmap ApplySobelEdgeDetection()
@@ -198,7 +228,6 @@ namespace ImageRecognition_Final_Project.Program
                     resultImage.SetPixel(x, y, Color.FromArgb(gradValue, gradValue, gradValue)); // 設置為灰階顏色
                 }
             }
-
             return resultImage;
         }
 
@@ -241,7 +270,6 @@ namespace ImageRecognition_Final_Project.Program
                     }
                 }
             }
-
             return erodedImage;
         }
 
@@ -285,7 +313,6 @@ namespace ImageRecognition_Final_Project.Program
                     }
                 }
             }
-
             return dilatedImage;
         }
 
@@ -328,6 +355,7 @@ namespace ImageRecognition_Final_Project.Program
             }
             return grayImage;
         }
+
         // 創建遮罩
         public bool[,] ApplyErosionAndDilation()
         {
@@ -353,8 +381,7 @@ namespace ImageRecognition_Final_Project.Program
                         Mask[x, y] = false;
                 }
             }
-
-                    return Mask; 
+            return Mask; 
         }
     }
 }

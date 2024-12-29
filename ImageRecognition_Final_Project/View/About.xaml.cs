@@ -46,6 +46,5 @@ namespace ImageRecognition_Final_Project
                 UseShellExecute = true
             });
         }
-
     }
 }
