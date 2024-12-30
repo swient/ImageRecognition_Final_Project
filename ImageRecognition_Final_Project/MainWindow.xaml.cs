@@ -57,8 +57,8 @@ namespace ImageRecognition_Final_Project
             TextWatermarFontSizeValue = 50;
             current_save_select = 0;
             TextWatermarkInput = "浮水印文字";
-            Removewatermarkmode = "option1";
-            SaveName = "output.png";
+            Removewatermarkmode = "垂直填充";
+            SaveName = "Output.png";
             InitializeComponent();
         }
 

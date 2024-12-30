@@ -42,7 +42,7 @@
                     </hc:UniformSpacingPanel>
                     <Canvas>
                         <Expander Header="儲存圖片" Canvas.Top="100" Canvas.Right="30">
-                            <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
+                            <Border BorderBrush="Black" BorderThickness="0.8" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
                                 <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
                                     <Button Content="儲存圖片" Width="100" Height="30" Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
                                     <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged"  Style="{StaticResource TabControlSliding}">
@@ -133,7 +133,7 @@
                     </hc:UniformSpacingPanel>
                     <Canvas>
                         <Expander Header="儲存圖片" Canvas.Top="100" Canvas.Right="30">
-                            <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
+                            <Border BorderBrush="Black" BorderThickness="0.8" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
                                 <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
                                     <Button Content="儲存圖片" Width="100" Height="30" Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
                                     <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged"  Style="{StaticResource TabControlSliding}">
@@ -231,7 +231,7 @@
                     </hc:UniformSpacingPanel>
                     <Canvas>
                         <Expander Header="儲存圖片" Canvas.Top="100" Canvas.Right="30">
-                            <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
+                            <Border BorderBrush="Black" BorderThickness="0.8" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
                                 <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
                                     <Button Content="儲存圖片" Width="100" Height="30" Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
                                     <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged"  Style="{StaticResource TabControlSliding}">
@@ -310,7 +310,7 @@
                     </hc:UniformSpacingPanel>
                     <Canvas>
                         <Expander Header="儲存圖片" Canvas.Top="100" Canvas.Right="30">
-                            <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
+                            <Border BorderBrush="Black" BorderThickness="0.8" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
                                 <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
                                     <Button Content="儲存圖片" Width="100" Height="30" Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
                                     <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged" Style="{StaticResource TabControlSliding}">
@@ -389,7 +389,7 @@
                     </hc:UniformSpacingPanel>
                     <Canvas>
                         <Expander Header="儲存圖片" Canvas.Top="100" Canvas.Right="30">
-                            <Border BorderBrush="Black" BorderThickness="0.5" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
+                            <Border BorderBrush="Black" BorderThickness="0.8" Background="AliceBlue" CornerRadius="10" Padding="20" Height="400">
                                 <hc:UniformSpacingPanel Spacing="10" Orientation="Vertical" HorizontalAlignment="Center">
                                     <Button Content="儲存圖片" Width="100" Height="30"  Click="SaveButton_Click" Style="{StaticResource ButtonPrimary}"/>
                                     <TabControl TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged" Style="{StaticResource TabControlSliding}">

@@ -3,27 +3,98 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         Title="設定" Height="600" Width="800" ResizeMode="NoResize" Icon="/Image/settings.png">
-    <Grid>
-        <hc:UniformSpacingPanel Margin="20" Spacing="30" Orientation="Vertical">
-            <GroupBox Header="語言設定" Margin="0,0,0,10">
-                <hc:ComboBox Width="200">
-                    <ComboBoxItem Content="中文"/>
-                    <ComboBoxItem Content="英文"/>
+    <Grid Margin="20 5 20 20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="175" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <ListBox
+            x:Name="MasterListBox"
+            Grid.Column="0"
+            Margin="10"
+            IsSynchronizedWithCurrentItem="true"
+            ItemsSource="{Binding ListTitle}"
+            DisplayMemberPath="Name"
+            SelectionChanged="MasterListBox_SelectionChanged" />
+
+        <hc:ScrollViewer
+            x:Name="settingScrollViewer"
+            Grid.Column="1"
+            Margin="20,5 20,10"
+            HorizontalAlignment="Stretch"
+            IsInertiaEnabled="True"
+            PanningMode="Both">
+            <StackPanel x:Name="settingStackPanel">
+                <hc:Divider Content="語言設定" x:Name="languageSettings"/>
+                <hc:ComboBox Margin="30 10 30 150" hc:TitleElement.TitleWidth="110"
+                             hc:TitleElement.HorizontalAlignment="Right" IsEnabled="True" SelectedIndex="0"
+                             Width="360" HorizontalAlignment="Center" ItemsSource="{Binding Languages}">
                 </hc:ComboBox>
-            </GroupBox>
-            <GroupBox Header="主題設定" Margin="0,0,0,10">
-                <hc:ComboBox Width="200">
-                    <ComboBoxItem Content="淺色"/>
-                    <ComboBoxItem Content="深色"/>
+                <hc:Divider Content="主題設定" x:Name="themeSettings"/>
+                <hc:ComboBox Margin="30 10 30 100" hc:TitleElement.TitleWidth="110"
+                             hc:TitleElement.HorizontalAlignment="Right" IsEnabled="True" SelectedIndex="0" 
+                             Width="360" HorizontalAlignment="Center" ItemsSource="{Binding Themes}">
                 </hc:ComboBox>
-            </GroupBox>
-            <GroupBox Header="通知設定" Margin="0,0,0,10">
-                <CheckBox Content="啟用通知"/>
-            </GroupBox>
-            <GroupBox Header="自動更新" Margin="0,0,0,10">
-                <CheckBox Content="啟用自動更新"/>
-            </GroupBox>
-            <Button Content="保存" Width="100" Margin="0,20,0,0" HorizontalAlignment="Center" Click="SaveSettings_Click"/>
-        </hc:UniformSpacingPanel>
+                <hc:Divider Content="軟體更新" x:Name="updateSettings"/>
+                <Grid Margin="30 10 30 100" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+                        <CheckBox x:Name="enableCheckVersionSettings" Margin="10"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"
+                                  Content="自動檢查更新">
+                        </CheckBox>
+                        <CheckBox x:Name="enableAutoUpdateResourceSettings" Margin="10"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"
+                                  Content="自動更新資源">
+                        </CheckBox>
+                        <CheckBox x:Name="enableAutoUpdateIRFPSettings" Margin="10"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"
+                                  Content="自動更新軟體">
+                        </CheckBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="10 0 0 0">
+                        <hc:Shield x:Name="IRFPShield" Color="#6969AA" Subject="軟體版本" Margin="5" HorizontalAlignment="Center">
+                            <TextBlock
+                                MaxWidth="150"
+                                Margin="0,3,0,3"
+                                MinWidth="50"
+                                Foreground="White" x:Name="IRFPShieldTextBlock"
+                                TextWrapping="Wrap" />
+                        </hc:Shield>
+                        <hc:Shield x:Name="ResourceShield" Color="#6969AA" Subject="資源版本" Margin="5" HorizontalAlignment="Center">
+                            <TextBlock
+                                MaxWidth="150"
+                                Margin="0,3,0,3"
+                                MinWidth="50"
+                                Foreground="White" x:Name="ResourceShieldTextBlock"
+                                TextWrapping="Wrap" />
+                        </hc:Shield>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Margin="5" Content="檢查資源"></Button>
+                            <Button Margin="5" Content="資源更新">
+                            </Button>
+                        </StackPanel>
+                        <Button Margin="5" Content="軟體更新">
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <hc:Divider Content="關於我們" x:Name="aboutUsSettings"/>
+                <hc:Shield Color="#6969AA" Subject="Github" Margin="5" HorizontalAlignment="Center" Height="25">
+                    <TextBlock
+                        MaxWidth="150"
+                        Margin="0,3,0,3"
+                        MinWidth="50"
+                        Foreground="White"
+                        TextWrapping="Wrap"
+                        Text="ImageRecognition_Project"/>
+                </hc:Shield>
+            </StackPanel>
+        </hc:ScrollViewer>
     </Grid>
 </hc:Window>
